@@ -60,7 +60,6 @@
 ### Front-End
 
 - Vuex
-- Redux
 
 
 ### Back-End
