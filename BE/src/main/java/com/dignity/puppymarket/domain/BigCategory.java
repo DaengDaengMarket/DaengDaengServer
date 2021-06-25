@@ -1,14 +1,13 @@
 package com.dignity.puppymarket.domain;
 
-public enum ItemStatus {
-    NEW("판매중"),
-    RESERVED("예약중"),
-    HIDE("숨기기"),
-    SOLDOUT("거래완료");
+public enum BigCategory {
+    BIG("대형견"),
+    MID("중형견"),
+    SMALL("소형견");
 
     private String title;
 
-    ItemStatus(String title) {
+    BigCategory(String title) {
         this.title = title;
     }
 
