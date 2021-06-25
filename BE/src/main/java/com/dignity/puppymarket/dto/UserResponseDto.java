@@ -40,7 +40,7 @@ public class UserResponseDto {
 
     private Gu gu;
 
-    private BigCategory bigCategory;
+    private BigCategory concern;
 
     private List<Item> sellerItemList;
 
@@ -65,7 +65,7 @@ public class UserResponseDto {
                 .rate(user.getRate())
                 .si(user.getSi())
                 .gu(user.getGu())
-                .bigCategory(user.getBigCategory())
+                .concern(user.getConcern())
                 .sellerItemList((user.getSellerItemList()))
                 .buyerItemList(user.getBuyerItemList())
                 .blame(user.getBlame())

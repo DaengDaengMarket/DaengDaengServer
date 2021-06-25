@@ -1,25 +1,17 @@
 package com.dignity.puppymarket.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
 @Table(name = "user")
 public class User {
     @Id
@@ -27,6 +19,7 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
+    @Column(unique = true)
     private String email;
 
     private String password;
@@ -46,7 +39,7 @@ public class User {
     private Gu gu;
 
     @Enumerated(EnumType.STRING)
-    private BigCategory bigCategory;
+    private BigCategory concern;
 
     //User(seller) 1 : N Item
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller")
@@ -71,4 +64,23 @@ public class User {
     //User(sender) 1 : N ChatMessage
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sender")
     private List<ChatMessage> chatMessageList = new ArrayList<>();
+
+    @Builder
+    public User(String email, String password, String nickname, String imagePath, String tel, Float rate, Si si, Gu gu, BigCategory concern, List<Item> sellerItemList, List<Item> buyerItemList, Blame blame, Wish wish, List<ChatRoom> chatRoomList, List<ChatMessage> chatMessageList) {
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.imagePath = imagePath;
+        this.tel = tel;
+        this.rate = rate;
+        this.si = si;
+        this.gu = gu;
+        this.concern = concern;
+        this.sellerItemList = sellerItemList;
+        this.buyerItemList = buyerItemList;
+        this.blame = blame;
+        this.wish = wish;
+        this.chatRoomList = chatRoomList;
+        this.chatMessageList = chatMessageList;
+    }
 }
