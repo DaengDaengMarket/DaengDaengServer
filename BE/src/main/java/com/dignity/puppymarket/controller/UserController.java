@@ -23,7 +23,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public String addUser(@RequestBody UserRequestDto userDto) {
+    public String addMember(@RequestBody UserRequestDto userDto) {
         return userService.join(userDto);
     }
 }
