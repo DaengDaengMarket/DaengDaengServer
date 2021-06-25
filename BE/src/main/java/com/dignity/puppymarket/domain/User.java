@@ -1,35 +1,28 @@
 package com.dignity.puppymarket.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
 @Table(name = "user")
-@ToString(exclude = {"sellerItemList", "buyerItemList", "blame", "wish", "chatRoomList", "chatMessageList"})
+@ToString(exclude = {"sellerItemList", "buyerItemList", "blame", "wishList", "chatRoomList", "chatMessageList"})
 public class User {
     @Id
     @GeneratedValue
     @Column(name = "user_id")
     private Long id;
 
+    @Column(unique = true)
     private String email;
 
     private String password;
@@ -77,5 +70,26 @@ public class User {
 
     public boolean authenticate(String password, PasswordEncoder passwordEncoder) {
         return passwordEncoder.matches(password, this.password);
+    }
+
+    @Builder
+    public User(String email, String password, String nickname, String imagePath, String tel, Float rate, Si si, Gu gu,
+                BigCategory concern, List<Item> sellerItemList, List<Item> buyerItemList, Blame blame,
+                List<Wish> wishList, List<ChatRoom> chatRoomList, List<ChatMessage> chatMessageList) {
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.imagePath = imagePath;
+        this.tel = tel;
+        this.rate = rate;
+        this.si = si;
+        this.gu = gu;
+        this.concern = concern;
+        this.sellerItemList = sellerItemList;
+        this.buyerItemList = buyerItemList;
+        this.blame = blame;
+        this.wishList = wishList;
+        this.chatRoomList = chatRoomList;
+        this.chatMessageList = chatMessageList;
     }
 }

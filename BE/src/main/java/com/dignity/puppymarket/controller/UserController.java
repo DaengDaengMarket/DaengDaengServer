@@ -1,14 +1,13 @@
 package com.dignity.puppymarket.controller;
 
 import com.dignity.puppymarket.dto.User.UserResponseDto;
+import com.dignity.puppymarket.dto.UserRequestDto;
 import com.dignity.puppymarket.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
@@ -19,5 +18,11 @@ public class UserController {
     @GetMapping("/{id}")
     public UserResponseDto detail(@PathVariable Long id) {
         return userService.getUser(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public String addMember(@RequestBody UserRequestDto userDto) {
+        return userService.join(userDto);
     }
 }
