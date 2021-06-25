@@ -3,6 +3,7 @@ package com.dignity.puppymarket.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,6 +21,7 @@ import javax.persistence.Table;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "wish")
+@ToString(exclude = {"user", "item"})
 public class Wish {
     @Id
     @GeneratedValue
@@ -33,8 +36,8 @@ public class Wish {
     @JoinColumn(name = "user_id")
     private User user;
 
-    //Wish 1 : 1 Item
-    @OneToOne(fetch = FetchType.LAZY)
+    //Wish N : 1 Item
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
 }

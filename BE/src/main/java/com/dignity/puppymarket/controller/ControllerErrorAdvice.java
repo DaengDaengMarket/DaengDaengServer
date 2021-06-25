@@ -2,6 +2,7 @@ package com.dignity.puppymarket.controller;
 
 import com.dignity.puppymarket.dto.ErrorResponse;
 import com.dignity.puppymarket.error.DuplicateUserException;
+import com.dignity.puppymarket.error.ItemNotFoundException;
 import com.dignity.puppymarket.error.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,5 +21,11 @@ public class ControllerErrorAdvice {
     @ExceptionHandler(DuplicateUserException.class)
     public ErrorResponse handleDuplicateUser(DuplicateUserException exception) {
         return ErrorResponse.of(exception.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ItemNotFoundException.class)
+    public ErrorResponse handleItemNotFound(ItemNotFoundException ex) {
+        return ErrorResponse.of(ex.getMessage());
     }
 }

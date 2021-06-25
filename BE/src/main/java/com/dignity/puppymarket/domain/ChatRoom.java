@@ -3,6 +3,7 @@ package com.dignity.puppymarket.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +21,17 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "chat_room")
+@ToString(exclude = {"item", "user", "chatMessageList"})
 public class ChatRoom {
     @Id
     @GeneratedValue
     @Column(name = "chat_room_id")
     private Long id;
 
-    //ChatRoom 1 : 1 Item
-    @OneToOne(fetch = FetchType.LAZY)
+    private String path;
+
+    //ChatRoom N : 1 Item
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
 

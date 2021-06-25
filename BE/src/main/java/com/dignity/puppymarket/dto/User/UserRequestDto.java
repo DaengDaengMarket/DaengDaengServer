@@ -1,4 +1,4 @@
-package com.dignity.puppymarket.dto;
+package com.dignity.puppymarket.dto.User;
 
 import com.dignity.puppymarket.domain.*;
 import lombok.*;
