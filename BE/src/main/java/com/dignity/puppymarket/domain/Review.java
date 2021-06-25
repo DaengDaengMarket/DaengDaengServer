@@ -3,6 +3,7 @@ package com.dignity.puppymarket.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.Column;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "review")
+@ToString(exclude = {"item"})
 public class Review {
     @Id
     @GeneratedValue

@@ -2,7 +2,7 @@ package com.dignity.puppymarket.controller;
 
 import com.dignity.puppymarket.domain.BigCategory;
 import com.dignity.puppymarket.domain.User;
-import com.dignity.puppymarket.dto.UserRequestDto;
+import com.dignity.puppymarket.dto.User.UserRequestDto;
 import com.dignity.puppymarket.repository.JPAUserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
