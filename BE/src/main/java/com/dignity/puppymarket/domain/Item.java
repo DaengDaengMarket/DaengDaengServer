@@ -29,7 +29,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Table(name = "item")
-@ToString(exclude = {"seller", "buyer", "itemImageList", "blameList", "wishList", "review", "chatRoom"})
+@ToString(exclude = {"seller", "buyer", "itemImageList", "blameList", "wishList", "review", "chatRoomList"})
 public class Item {
     @Id
     @GeneratedValue
