@@ -4,6 +4,8 @@ import com.dignity.puppymarket.dto.Item.ItemCreateRequestDto;
 import com.dignity.puppymarket.dto.Item.ItemCreateResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemGetResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemResponseDto;
+import com.dignity.puppymarket.dto.Item.ItemUpdateRequestDto;
+import com.dignity.puppymarket.dto.Item.ItemUpdateResponseDto;
 import com.dignity.puppymarket.service.ItemService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,7 +43,7 @@ public class ItemController {
 
     @PutMapping("/{id}")
     public ItemUpdateResponseDto update(@PathVariable Long id,
-                                        @RequestBody ItemUpdateReuqestDto itemUpdateReuqestDto) {
-        return itemService.updateItem(id, itemUpdateReuqestDto);
+                                        @RequestBody ItemUpdateRequestDto itemUpdateRequestDto) {
+        return itemService.updateItem(id, itemUpdateRequestDto);
     }
 }
