@@ -8,6 +8,7 @@ import com.dignity.puppymarket.service.ItemService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,5 +37,11 @@ public class ItemController {
     @PostMapping
     public ItemCreateResponseDto create(@RequestBody ItemCreateRequestDto itemCreateRequestDto) {
         return itemService.createItem(itemCreateRequestDto);
+    }
+
+    @PutMapping("/{id}")
+    public ItemUpdateResponseDto update(@PathVariable Long id,
+                                        @RequestBody ItemUpdateReuqestDto itemUpdateReuqestDto) {
+        return itemService.updateItem(id, itemUpdateReuqestDto);
     }
 }
