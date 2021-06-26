@@ -15,4 +15,6 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
             "LEFT JOIN i.itemImageList itemImageList LEFT JOIN i.blameList blameList LEFT JOIN i.wishList wishList " +
             "LEFT JOIN i.review review LEFT JOIN i.chatRoomList chatRoomList WHERE i.id = :id")
     Optional<Item> findById(@Param("id") Long id);
+
+    Item save(Item item);
 }

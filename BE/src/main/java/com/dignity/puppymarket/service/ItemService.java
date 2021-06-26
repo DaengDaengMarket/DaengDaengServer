@@ -1,5 +1,8 @@
 package com.dignity.puppymarket.service;
 
+import com.dignity.puppymarket.domain.Item;
+import com.dignity.puppymarket.dto.Item.ItemCreateRequestDto;
+import com.dignity.puppymarket.dto.Item.ItemCreateResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemGetResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemHomeGetResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemResponseDto;
@@ -34,5 +37,11 @@ public class ItemService {
         return itemRepository.findById(id)
                 .map(ItemGetResponseDto::of)
                 .orElseThrow(() -> new ItemNotFoundException(id));
+    }
+
+    public ItemCreateResponseDto createItem(ItemCreateRequestDto itemCreateRequestDto) {
+        Item item = itemCreateRequestDto.toEntity();
+        Item savedItem = itemRepository.save(item);
+        return ItemCreateResponseDto.of(savedItem);
     }
 }
