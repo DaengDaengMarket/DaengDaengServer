@@ -131,8 +131,26 @@ class UserControllerTest {
 
 - 로그인, 회원가입, 상품, 공지사항
 
->
+>로그인에 따른 네비바 및 페이지 접속
 </details>
+
+<details>
+<summary>5주차</summary>
+</details>
+
+<details>
+<summary>6주차</summary>
+</details>
+
+
+<details>
+<summary>7주차</summary>
+테스트 및 버그 수정
+</details>
+
+
+
+
 
 
 ## 파트 소개
