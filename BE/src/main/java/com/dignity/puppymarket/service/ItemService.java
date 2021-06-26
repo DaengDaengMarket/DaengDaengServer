@@ -3,6 +3,7 @@ package com.dignity.puppymarket.service;
 import com.dignity.puppymarket.domain.Item;
 import com.dignity.puppymarket.dto.Item.ItemCreateRequestDto;
 import com.dignity.puppymarket.dto.Item.ItemCreateResponseDto;
+import com.dignity.puppymarket.dto.Item.ItemDeleteResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemGetResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemHomeGetResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemResponseDto;
@@ -55,6 +56,14 @@ public class ItemService {
         item.updateWith(itemUpdateRequestDto);
 
         return ItemUpdateResponseDto.of(item);
+    }
+
+    public ItemDeleteResponseDto deleteItem(Long id) {
+        Item item = findItem(id);
+
+        itemRepository.delete(item);
+
+        return ItemDeleteResponseDto.of(item);
     }
 
     public Item findItem(Long id) {

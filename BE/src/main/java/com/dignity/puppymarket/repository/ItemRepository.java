@@ -17,4 +17,6 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
     Optional<Item> findById(@Param("id") Long id);
 
     Item save(Item item);
+
+    void delete(Item item);
 }
