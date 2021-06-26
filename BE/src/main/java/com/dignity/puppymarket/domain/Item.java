@@ -9,6 +9,7 @@ import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -82,7 +83,7 @@ public class Item {
     private User buyer;
 
     //Item 1 : N ItemImage
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemImage> itemImageList = new ArrayList<>();
 
     //Item 1 : N Blame
@@ -90,7 +91,7 @@ public class Item {
     private List<Blame> blameList = new ArrayList<>();
 
     //Item 1 : N Wish
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Wish> wishList = new ArrayList<>();
     
     //Item 1 : 1 Review
@@ -98,7 +99,7 @@ public class Item {
     private Review review;
 
     //Item 1 : N chatRoom
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChatRoom> chatRoomList = new ArrayList<>();
 
     public Item(Long id, String name, int price, String description, int hit, ItemStatus itemStatus,
