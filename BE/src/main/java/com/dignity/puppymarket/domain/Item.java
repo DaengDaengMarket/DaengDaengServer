@@ -1,5 +1,6 @@
 package com.dignity.puppymarket.domain;
 
+import com.dignity.puppymarket.dto.Item.ItemUpdateRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -124,5 +125,18 @@ public class Item {
         this.wishList = wishList;
         this.review = review;
         this.chatRoomList = chatRoomList;
+    }
+
+    public void updateWith(ItemUpdateRequestDto itemUpdateRequestDto) {
+        this.name = itemUpdateRequestDto.getName();
+        this.price = itemUpdateRequestDto.getPrice();
+        this.description = itemUpdateRequestDto.getDescription();
+        this.itemStatus = itemUpdateRequestDto.getItemStatus();
+        this.negoStatus = itemUpdateRequestDto.getNegoStatus();
+        this.bigCategory = itemUpdateRequestDto.getBigCategory();
+        this.midCategory = itemUpdateRequestDto.getMidCategory();
+        this.itemImageList = itemUpdateRequestDto.getItemImageList();
+        this.si = itemUpdateRequestDto.getSi();
+        this.gu = itemUpdateRequestDto.getGu();
     }
 }
