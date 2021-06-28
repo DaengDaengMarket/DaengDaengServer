@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -84,5 +85,8 @@ public class User {
         this.wish = wish;
         this.chatRoomList = chatRoomList;
         this.chatMessageList = chatMessageList;
+    }
+    public boolean authenticate(String password, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(password, this.password);
     }
 }
