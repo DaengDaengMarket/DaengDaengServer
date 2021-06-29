@@ -10,16 +10,16 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class SessionResponseDto {
-    private String accessToken;
+    private String token;
 
     @Builder
-    public SessionResponseDto(String accessToken) {
-        this.accessToken = accessToken;
+    public SessionResponseDto(String token) {
+        this.token = token;
     }
 
-    public static SessionResponseDto of(String accessToken) {
+    public static SessionResponseDto of(String token) {
         return SessionResponseDto.builder()
-                .accessToken(accessToken)
+                .token(token)
                 .build();
     }
 }
