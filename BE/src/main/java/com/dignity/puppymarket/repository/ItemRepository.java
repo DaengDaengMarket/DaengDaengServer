@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ItemRepository extends CrudRepository<Item, Long> {
+    @Query("SELECT distinct i FROM Item i LEFT JOIN i.seller seller LEFT JOIN i.buyer buyer " +
+            "LEFT JOIN i.itemImageList itemImageList LEFT JOIN i.blameList blameList LEFT JOIN i.wishList wishList " +
+            "LEFT JOIN i.review review LEFT JOIN i.chatRoomList chatRoomList")
     List<Item> findAll();
 
     @Query("SELECT distinct i FROM Item i LEFT JOIN i.seller seller LEFT JOIN i.buyer buyer " +
