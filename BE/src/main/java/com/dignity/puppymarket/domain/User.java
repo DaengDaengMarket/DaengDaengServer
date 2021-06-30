@@ -49,7 +49,7 @@ public class User {
     private Gu gu;
 
     @Enumerated(EnumType.STRING)
-    private BigCategory bigCategory;
+    private BigCategory concern;
 
     //User(seller) 1 : N Item
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller")
@@ -63,9 +63,9 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
     private Blame blame;
 
-    //User 1 : 1 Wish
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
-    private Wish wish;
+    //User 1 : N Wish
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    List<Wish> wishList = new ArrayList<>();
 
     //User 1 : N chatRoom
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")

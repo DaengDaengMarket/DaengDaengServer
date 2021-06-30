@@ -1,5 +1,6 @@
 package com.dignity.puppymarket.controller;
 
+import com.dignity.puppymarket.dto.MyPageGetResponseDto;
 import com.dignity.puppymarket.service.MyPageService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
