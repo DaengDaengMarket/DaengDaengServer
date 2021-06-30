@@ -14,7 +14,7 @@ public class MyPageService {
     }
 
     public MyPageGetResponseDto getMyPage(Long id) {
-        return userRepository.getMyPage(id)
+        return userRepository.findById(id)
                 .map(MyPageGetResponseDto::of)
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
