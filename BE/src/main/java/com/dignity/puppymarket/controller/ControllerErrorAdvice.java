@@ -1,6 +1,7 @@
 package com.dignity.puppymarket.controller;
 
 import com.dignity.puppymarket.dto.ErrorResponse;
+import com.dignity.puppymarket.error.DuplicateUserException;
 import com.dignity.puppymarket.error.AuthenticationBadRequestException;
 import com.dignity.puppymarket.error.InvalidTokenException;
 import com.dignity.puppymarket.error.ItemNotFoundException;
@@ -16,6 +17,12 @@ public class ControllerErrorAdvice {
     @ExceptionHandler(UserNotFoundException.class)
     public ErrorResponse handleUserNotFound(UserNotFoundException ex) {
         return ErrorResponse.of(ex.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ExceptionHandler(DuplicateUserException.class)
+    public ErrorResponse handleDuplicateUser(DuplicateUserException exception) {
+        return ErrorResponse.of(exception.getMessage());
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)

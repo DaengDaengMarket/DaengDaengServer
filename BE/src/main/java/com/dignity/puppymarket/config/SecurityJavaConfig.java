@@ -3,6 +3,7 @@ package com.dignity.puppymarket.config;
 import com.dignity.puppymarket.filters.AuthenticationErrorFilter;
 import com.dignity.puppymarket.filters.JwtAuthenticationFilter;
 import com.dignity.puppymarket.service.AuthenticationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
