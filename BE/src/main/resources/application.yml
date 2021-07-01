@@ -15,7 +15,7 @@ spring:
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
     # Query show
     show-sql: true
@@ -24,11 +24,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
-<<<<<<< HEAD
+        # 방언 MySQL 로 설정
+        dialect: org.hibernate.dialect.MySQL8Dialect
 
 jwt:
   secret: "12345678901234567890123456789010"
-=======
-        # 방언 MySQL 로 설정
-        dialect: org.hibernate.dialect.MySQL8Dialect
->>>>>>> 3a2e0fb ([feat] 회원가입 기능 구현)
+
