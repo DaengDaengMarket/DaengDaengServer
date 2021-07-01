@@ -9,13 +9,13 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/puppy?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
-    password: 1234
+    password: 8956
 
   # Spring Jpa ddl
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
     # Query show
     show-sql: true
@@ -24,6 +24,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        # 방언 MySQL 로 설정
+        dialect: org.hibernate.dialect.MySQL8Dialect
 
 jwt:
   secret: "12345678901234567890123456789010"
