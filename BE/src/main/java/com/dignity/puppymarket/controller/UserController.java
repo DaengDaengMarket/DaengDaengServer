@@ -5,6 +5,7 @@ import com.dignity.puppymarket.dto.User.UserResponseDto;
 import com.dignity.puppymarket.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -20,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping
-    public String addMember(@RequestBody UserRequestDto userDto) {
+    public String addUser(@RequestBody UserRequestDto userDto) {
         return userService.join(userDto);
     }
 }
