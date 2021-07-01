@@ -41,9 +41,9 @@ public class AuthenticationService {
                 authenticationCreateDto.getPassword()
         );
 
-        String accessToken = jwtUtil.encode(userLoginResponseDto.getEmail());
+        String token = jwtUtil.encode(userLoginResponseDto.getEmail());
 
-        return SessionResponseDto.of(accessToken);
+        return SessionResponseDto.of(token);
     }
 
     public String parseToken(String token) {

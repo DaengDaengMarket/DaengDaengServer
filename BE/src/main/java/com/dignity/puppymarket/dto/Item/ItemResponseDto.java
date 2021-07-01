@@ -58,7 +58,7 @@ public class ItemResponseDto {
 
     private User buyer;
 
-    private List<ItemImageResponseDto> itemImageList;
+    private ItemImageResponseDto itemImageResponseDto;
 
     private List<BlameGetResponseDto> blameList;
 
@@ -85,10 +85,12 @@ public class ItemResponseDto {
                 .gu(item.getGu())
                 .seller(item.getSeller())
                 .buyer(item.getBuyer())
-                .itemImageList(
+                .itemImageResponseDto(
                         item.getItemImageList().stream()
+                            .filter(i -> i.getOrders() == 1)
                             .map(ItemImageResponseDto::of)
-                            .collect(Collectors.toList())
+                            .findAny()
+                            .orElse(null)
                 )
                 .blameList(
                         item.getBlameList().stream()

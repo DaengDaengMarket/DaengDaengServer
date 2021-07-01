@@ -48,7 +48,7 @@ public class UserResponseDto {
 
     private Blame blame;
 
-    private Wish wish;
+    private List<Wish> wishList;
 
     private List<ChatRoom> chatRoomList;
 
@@ -69,7 +69,7 @@ public class UserResponseDto {
                 .sellerItemList((user.getSellerItemList()))
                 .buyerItemList(user.getBuyerItemList())
                 .blame(user.getBlame())
-                .wish(user.getWish())
+                .wishList(user.getWishList())
                 .chatRoomList(user.getChatRoomList())
                 .chatMessageList(user.getChatMessageList())
                 .build();

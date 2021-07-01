@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -31,8 +30,8 @@ public class Wish {
     @Enumerated(EnumType.STRING)
     private WishStatus wishStatus;
 
-    //Wish 1 : 1 User
-    @OneToOne(fetch = FetchType.LAZY)
+    //Wish N : 1 User
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
