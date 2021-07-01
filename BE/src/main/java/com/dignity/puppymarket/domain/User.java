@@ -69,7 +69,9 @@ public class User {
     private List<ChatMessage> chatMessageList = new ArrayList<>();
 
     @Builder
-    public User(String email, String password, String nickname, String imagePath, String tel, Float rate, Si si, Gu gu, BigCategory concern, List<Item> sellerItemList, List<Item> buyerItemList, Blame blame, Wish wish, List<ChatRoom> chatRoomList, List<ChatMessage> chatMessageList) {
+    public User(String email, String password, String nickname, String imagePath, String tel, Float rate,
+                Si si, Gu gu, BigCategory concern, List<Item> sellerItemList, List<Item> buyerItemList,
+                Blame blame, Wish wish, List<ChatRoom> chatRoomList, List<ChatMessage> chatMessageList) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
@@ -86,7 +88,12 @@ public class User {
         this.chatRoomList = chatRoomList;
         this.chatMessageList = chatMessageList;
     }
+
     public boolean authenticate(String password, PasswordEncoder passwordEncoder) {
         return passwordEncoder.matches(password, this.password);
+    }
+
+    public void updatePassword(String password, PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(password);
     }
 }
