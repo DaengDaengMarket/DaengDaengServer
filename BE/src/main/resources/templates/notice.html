@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>hello</title>
+</head>
+<body>
+<h1>notice</h1>
+
+
+<table id="exampleTable" class="table table-bordered">
+
+    <thead>
+    <tr>
+        <th>Seq</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Date</th>
+    </tr>
+
+    </thead>
+
+    <tbody>
+
+    <tr th:each="notice : ${notices}">
+
+        <td th:text="${notice.id}"></td>
+
+        <td th:text="${notice.title}"></td>
+
+        <td th:text=" ${notice.content}"></td>
+
+        <td th:text="${notice.createdAt}"></td>
+        <form action="post">
+        <td><input type="submit" th:href="@{/notice/{id}(id=${notice.id})}">Delete</input></td>
+        </form>
+    </tr>
+
+    </tbody>
+
+</table>
+</body>
+</html>
