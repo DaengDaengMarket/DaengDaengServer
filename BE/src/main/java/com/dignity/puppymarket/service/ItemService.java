@@ -1,6 +1,7 @@
 package com.dignity.puppymarket.service;
 
 import com.dignity.puppymarket.domain.Item;
+import com.dignity.puppymarket.domain.Pagination;
 import com.dignity.puppymarket.dto.Item.ItemCreateRequestDto;
 import com.dignity.puppymarket.dto.Item.ItemCreateResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemDeleteResponseDto;
@@ -11,6 +12,7 @@ import com.dignity.puppymarket.dto.Item.ItemUpdateRequestDto;
 import com.dignity.puppymarket.dto.Item.ItemUpdateResponseDto;
 import com.dignity.puppymarket.error.ItemNotFoundException;
 import com.dignity.puppymarket.repository.ItemRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,16 +28,20 @@ public class ItemService {
         this.itemRepository = itemRepository;
     }
 
-    public List<ItemResponseDto> getItems() {
-        return itemRepository.findAll().stream()
+    public List<ItemResponseDto> getItems(Pageable pageable) {
+        return itemRepository.findAll(pageable).stream()
                 .map(ItemResponseDto::of)
                 .collect(Collectors.toList());
     }
     
-    public List<ItemHomeGetResponseDto> getHomeItems() {
-        return itemRepository.findAll().stream()
+    public List<ItemHomeGetResponseDto> getHomeItems(Pageable pageable) {
+        return itemRepository.findAll(pageable).stream()
                 .map(ItemHomeGetResponseDto::of)
                 .collect(Collectors.toList());
+    }
+
+    public Pagination getHomeItemsPagination(Pageable pageable) {
+        return Pagination.itemWith(itemRepository.findAll(pageable));
     }
 
     public ItemGetResponseDto getItem(Long id) {

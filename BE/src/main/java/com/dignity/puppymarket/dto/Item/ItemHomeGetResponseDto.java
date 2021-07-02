@@ -4,6 +4,7 @@ import com.dignity.puppymarket.domain.Gu;
 import com.dignity.puppymarket.domain.Item;
 import com.dignity.puppymarket.domain.ItemStatus;
 import com.dignity.puppymarket.domain.NegoStatus;
+import com.dignity.puppymarket.domain.Pagination;
 import com.dignity.puppymarket.domain.Si;
 import com.dignity.puppymarket.dto.ItemImageResponseDto;
 import lombok.AccessLevel;
@@ -39,6 +40,8 @@ public class ItemHomeGetResponseDto {
     private Si si;
 
     private Gu gu;
+
+    private Pagination pagination;
 
     @Builder
     public ItemHomeGetResponseDto(Long id, String name, int price, int hit, ItemStatus itemStatus,
