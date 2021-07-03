@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name = "notice")
+
 public class Notice {
 
     @Id
@@ -43,4 +44,5 @@ public class Notice {
         this.title = form.getTitle();
         this.content = form.getContent();
     }
+
 }

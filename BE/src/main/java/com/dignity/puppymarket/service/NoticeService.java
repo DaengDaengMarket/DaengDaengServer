@@ -1,6 +1,7 @@
 package com.dignity.puppymarket.service;
 
 import com.dignity.puppymarket.domain.Notice;
+
 import com.dignity.puppymarket.dto.NoticeRequestDto;
 import com.dignity.puppymarket.repository.NoticeRepository;
 import org.springframework.stereotype.Service;
@@ -45,4 +46,5 @@ public class NoticeService {
     public void deleteNotice(Long id){
         noticeRepository.deleteById(id);
     }
+
 }
