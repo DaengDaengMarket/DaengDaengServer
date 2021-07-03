@@ -1,10 +1,11 @@
 package com.dignity.puppymarket.controller;
 
 import com.dignity.puppymarket.dto.ErrorResponse;
+import com.dignity.puppymarket.error.AdvertiseNotFoundException;
 import com.dignity.puppymarket.error.AuthenticationBadRequestException;
+import com.dignity.puppymarket.error.DuplicateUserException;
 import com.dignity.puppymarket.error.InvalidTokenException;
 import com.dignity.puppymarket.error.ItemNotFoundException;
-import com.dignity.puppymarket.error.DuplicateUserException;
 import com.dignity.puppymarket.error.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -41,5 +42,11 @@ public class ControllerErrorAdvice {
     @ExceptionHandler(DuplicateUserException.class)
     public ErrorResponse handleDuplicateUser(DuplicateUserException exception) {
         return ErrorResponse.of(exception.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(AdvertiseNotFoundException.class)
+    public ErrorResponse handleAdvertiseNotFound(AdvertiseNotFoundException ex) {
+        return ErrorResponse.of(ex.getMessage());
     }
 }

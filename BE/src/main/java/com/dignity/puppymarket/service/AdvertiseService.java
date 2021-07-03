@@ -3,6 +3,8 @@ package com.dignity.puppymarket.service;
 import com.dignity.puppymarket.domain.Advertise;
 import com.dignity.puppymarket.dto.AdvertiseRequestDto;
 import com.dignity.puppymarket.dto.AdvertiseResponseDto;
+import com.dignity.puppymarket.dto.AdvertiseUpdateRequestDto;
+import com.dignity.puppymarket.error.AdvertiseNotFoundException;
 import com.dignity.puppymarket.repository.AdvertiseRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,15 @@ public class AdvertiseService {
     public AdvertiseResponseDto createAdvertise(AdvertiseRequestDto advertiseRequestDto) {
         Advertise advertise = advertiseRequestDto.toEntity();
         advertiseRepository.save(advertise);
+        return AdvertiseResponseDto.of(advertise);
+    }
+
+    public AdvertiseResponseDto updateAdvertise(Long id, AdvertiseUpdateRequestDto advertiseUpdateRequestDto) {
+        Advertise advertise = advertiseRepository.findById(id)
+                .orElseThrow(() -> new AdvertiseNotFoundException(id));
+
+        advertise.updateWith(advertiseUpdateRequestDto);
+
         return AdvertiseResponseDto.of(advertise);
     }
 }
