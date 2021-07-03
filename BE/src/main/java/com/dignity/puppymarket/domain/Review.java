@@ -1,6 +1,7 @@
 package com.dignity.puppymarket.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -38,4 +39,18 @@ public class Review {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
+
+    @Builder
+    public Review(Long id, String content, Float rate, LocalDateTime createdAt, Item item) {
+        this.id = id;
+        this.content = content;
+        this.rate = rate;
+        this.createdAt = createdAt;
+        this.item = item;
+    }
+
+    public void addItem(Item item) {
+        this.item = item;
+        item.addReview(this);
+    }
 }
