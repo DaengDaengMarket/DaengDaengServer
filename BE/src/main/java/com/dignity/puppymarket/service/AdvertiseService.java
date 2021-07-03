@@ -39,4 +39,13 @@ public class AdvertiseService {
 
         return AdvertiseResponseDto.of(advertise);
     }
+
+    public AdvertiseResponseDto deleteAdvertise(Long id) {
+        Advertise advertise = advertiseRepository.findById(id)
+                .orElseThrow(() -> new AdvertiseNotFoundException(id));
+
+        advertiseRepository.delete(advertise);
+
+        return AdvertiseResponseDto.of(advertise);
+    }
 }
