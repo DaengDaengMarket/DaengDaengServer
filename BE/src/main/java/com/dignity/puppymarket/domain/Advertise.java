@@ -1,6 +1,6 @@
 package com.dignity.puppymarket.domain;
 
-import com.dignity.puppymarket.dto.AdvertiseUpdateRequestDto;
+import com.dignity.puppymarket.dto.Advertise.AdvertiseUpdateRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,6 +1,7 @@
-package com.dignity.puppymarket.dto;
+package com.dignity.puppymarket.dto.Review;
 
 import com.dignity.puppymarket.domain.Review;
+import com.dignity.puppymarket.dto.Item.ItemMyPageResponseDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-public class ReviewGetResponseDto {
+public class ReviewMyPageResponseDto {
     private Long id;
 
     private String content;
@@ -21,22 +22,28 @@ public class ReviewGetResponseDto {
 
     private LocalDateTime createdAt;
 
+    private ItemMyPageResponseDto itemMyPageResponseDto;
+
     @Builder
-    public ReviewGetResponseDto(Long id, String content, Float rate, LocalDateTime createdAt) {
+    public ReviewMyPageResponseDto(Long id, String content,
+                                   Float rate, LocalDateTime createdAt,
+                                   ItemMyPageResponseDto itemMyPageResponseDto) {
         this.id = id;
         this.content = content;
         this.rate = rate;
         this.createdAt = createdAt;
+        this.itemMyPageResponseDto = itemMyPageResponseDto;
     }
 
-    public static ReviewGetResponseDto of(Review review) {
+    public static ReviewMyPageResponseDto of(Review review) {
         if(review == null) return null;
 
-        return ReviewGetResponseDto.builder()
+        return ReviewMyPageResponseDto.builder()
                 .id(review.getId())
                 .content(review.getContent())
                 .rate(review.getRate())
                 .createdAt(review.getCreatedAt())
+                .itemMyPageResponseDto(ItemMyPageResponseDto.of(review.getItem()))
                 .build();
     }
 }

@@ -1,8 +1,8 @@
 package com.dignity.puppymarket.controller;
 
-import com.dignity.puppymarket.dto.AdvertiseRequestDto;
-import com.dignity.puppymarket.dto.AdvertiseResponseDto;
-import com.dignity.puppymarket.dto.AdvertiseUpdateRequestDto;
+import com.dignity.puppymarket.dto.Advertise.AdvertiseRequestDto;
+import com.dignity.puppymarket.dto.Advertise.AdvertiseResponseDto;
+import com.dignity.puppymarket.dto.Advertise.AdvertiseUpdateRequestDto;
 import com.dignity.puppymarket.service.AdvertiseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;

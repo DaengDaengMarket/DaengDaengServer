@@ -1,6 +1,7 @@
 package com.dignity.puppymarket.dto;
 
 import com.dignity.puppymarket.domain.Pagination;
+import com.dignity.puppymarket.dto.Advertise.AdvertiseResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemHomeGetResponseDto;
 import lombok.AccessLevel;
 import lombok.Builder;

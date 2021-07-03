@@ -3,7 +3,7 @@ package com.dignity.puppymarket.dto.MyPage;
 import com.dignity.puppymarket.domain.Pagination;
 import com.dignity.puppymarket.domain.User;
 import com.dignity.puppymarket.dto.Item.ItemHomeGetResponseDto;
-import com.dignity.puppymarket.dto.ReviewMyPageResponseDto;
+import com.dignity.puppymarket.dto.Review.ReviewMyPageResponseDto;
 import com.dignity.puppymarket.dto.User.UserMyPageResponseDto;
 import lombok.AccessLevel;
 import lombok.Builder;

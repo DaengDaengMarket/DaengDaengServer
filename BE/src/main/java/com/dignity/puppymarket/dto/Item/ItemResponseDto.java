@@ -12,7 +12,7 @@ import com.dignity.puppymarket.domain.User;
 import com.dignity.puppymarket.dto.BlameGetResponseDto;
 import com.dignity.puppymarket.dto.ChatRoomGetResponseDto;
 import com.dignity.puppymarket.dto.ItemImageResponseDto;
-import com.dignity.puppymarket.dto.ReviewGetResponseDto;
+import com.dignity.puppymarket.dto.Review.ReviewGetResponseDto;
 import com.dignity.puppymarket.dto.WishGetResponseDto;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

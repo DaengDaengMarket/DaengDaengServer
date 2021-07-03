@@ -1,4 +1,4 @@
-package com.dignity.puppymarket.dto;
+package com.dignity.puppymarket.dto.Advertise;
 
 import com.dignity.puppymarket.domain.Advertise;
 import lombok.AccessLevel;

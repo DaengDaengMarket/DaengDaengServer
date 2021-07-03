@@ -1,7 +1,7 @@
 package com.dignity.puppymarket.controller;
 
 import com.dignity.puppymarket.domain.Pagination;
-import com.dignity.puppymarket.dto.AdvertiseResponseDto;
+import com.dignity.puppymarket.dto.Advertise.AdvertiseResponseDto;
 import com.dignity.puppymarket.dto.HomeResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemHomeGetResponseDto;
 import com.dignity.puppymarket.service.AdvertiseService;

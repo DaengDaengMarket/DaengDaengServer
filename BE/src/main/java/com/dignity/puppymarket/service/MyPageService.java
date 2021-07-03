@@ -6,7 +6,7 @@ import com.dignity.puppymarket.domain.Review;
 import com.dignity.puppymarket.domain.User;
 import com.dignity.puppymarket.dto.Item.ItemHomeGetResponseDto;
 import com.dignity.puppymarket.dto.MyPage.MyPageGetResponseDto;
-import com.dignity.puppymarket.dto.ReviewMyPageResponseDto;
+import com.dignity.puppymarket.dto.Review.ReviewMyPageResponseDto;
 import com.dignity.puppymarket.error.UserNotFoundException;
 import com.dignity.puppymarket.repository.ItemRepository;
 import com.dignity.puppymarket.repository.ReviewRepository;

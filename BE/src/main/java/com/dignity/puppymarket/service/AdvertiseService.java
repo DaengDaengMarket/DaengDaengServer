@@ -1,9 +1,9 @@
 package com.dignity.puppymarket.service;
 
 import com.dignity.puppymarket.domain.Advertise;
-import com.dignity.puppymarket.dto.AdvertiseRequestDto;
-import com.dignity.puppymarket.dto.AdvertiseResponseDto;
-import com.dignity.puppymarket.dto.AdvertiseUpdateRequestDto;
+import com.dignity.puppymarket.dto.Advertise.AdvertiseRequestDto;
+import com.dignity.puppymarket.dto.Advertise.AdvertiseResponseDto;
+import com.dignity.puppymarket.dto.Advertise.AdvertiseUpdateRequestDto;
 import com.dignity.puppymarket.error.AdvertiseNotFoundException;
 import com.dignity.puppymarket.repository.AdvertiseRepository;
 import org.springframework.stereotype.Service;
