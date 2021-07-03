@@ -35,10 +35,13 @@ public class Pagination {
     }
 
     public static Pagination itemWith(Page<Item> items) {
+        if(items == null) return null;
+
+        int currentPage = customCurrentPage(items.getNumber());
         return Pagination.builder()
                 .totalPages(items.getTotalPages())
                 .totalElements(items.getTotalElements())
-                .currentPage(items.getNumber())
+                .currentPage(currentPage)
                 .currentElements(items.getNumberOfElements())
                 .hasNext(items.hasNext())
                 .hasPrevious(items.hasPrevious())
@@ -46,13 +49,24 @@ public class Pagination {
     }
 
     public static Pagination reviewWith(Page<Review> pageReviews) {
+        if(pageReviews == null) return null;
+
+        int currentPage = customCurrentPage(pageReviews.getNumber());
         return Pagination.builder()
                 .totalPages(pageReviews.getTotalPages())
                 .totalElements(pageReviews.getTotalElements())
-                .currentPage(pageReviews.getNumber())
+                .currentPage(currentPage)
                 .currentElements(pageReviews.getNumberOfElements())
                 .hasNext(pageReviews.hasNext())
                 .hasPrevious(pageReviews.hasPrevious())
                 .build();
+    }
+
+    public static int customCurrentPage(int number) {
+        if(number == 0) return 1;
+
+        if(number >= 1) return number + 1;
+
+        return number;
     }
 }
