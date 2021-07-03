@@ -23,4 +23,14 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
     Item save(Item item);
 
     void delete(Item item);
+
+    @Query("SELECT distinct i FROM Item i LEFT JOIN i.seller seller LEFT JOIN i.buyer buyer " +
+            "LEFT JOIN i.itemImageList itemImageList LEFT JOIN i.blameList blameList LEFT JOIN i.wishList wishList " +
+            "LEFT JOIN i.review review LEFT JOIN i.chatRoomList chatRoomList WHERE i.seller.id = :id")
+    Page<Item> findAllBySellerId(@Param("id") Long id, Pageable pageable);
+
+    @Query("SELECT distinct i FROM Item i LEFT JOIN i.seller seller LEFT JOIN i.buyer buyer " +
+            "LEFT JOIN i.itemImageList itemImageList LEFT JOIN i.blameList blameList LEFT JOIN i.wishList wishList " +
+            "LEFT JOIN i.review review LEFT JOIN i.chatRoomList chatRoomList WHERE i.buyer.id = :id")
+    Page<Item> findAllByBuyerId(@Param("id") Long id, Pageable pageable);
 }
