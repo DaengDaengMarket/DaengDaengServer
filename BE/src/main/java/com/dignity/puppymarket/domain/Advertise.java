@@ -1,5 +1,6 @@
 package com.dignity.puppymarket.domain;
 
+import com.dignity.puppymarket.dto.Advertise.AdvertiseUpdateRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,5 +33,10 @@ public class Advertise {
         this.id = id;
         this.imagePath = imagePath;
         this.orders = orders;
+    }
+
+    public void updateWith(AdvertiseUpdateRequestDto advertiseUpdateRequestDto) {
+        this.imagePath = advertiseUpdateRequestDto.getImagePath();
+        this.orders = advertiseUpdateRequestDto.getOrders();
     }
 }

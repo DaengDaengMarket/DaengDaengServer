@@ -140,4 +140,8 @@ public class Item {
         this.si = itemUpdateRequestDto.getSi();
         this.gu = itemUpdateRequestDto.getGu();
     }
+
+    public void addReview(Review review) {
+        this.review = review;
+    }
 }

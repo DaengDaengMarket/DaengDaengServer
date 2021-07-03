@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "user")
-@ToString(exclude = {"sellerItemList", "buyerItemList", "blame", "wish", "chatRoomList", "chatMessageList"})
+@ToString(exclude = {"sellerItemList", "buyerItemList", "blame", "wishList", "chatRoomList", "chatMessageList"})
 public class User {
     @Id
     @GeneratedValue
@@ -69,10 +69,16 @@ public class User {
     private List<ChatMessage> chatMessageList = new ArrayList<>();
 
     @Builder
+<<<<<<< HEAD
+    public User(String email, String password, String nickname, String imagePath, String tel, Float rate, Si si, Gu gu,
+                BigCategory concern, List<Item> sellerItemList, List<Item> buyerItemList, Blame blame,
+                List<Wish> wishList, List<ChatRoom> chatRoomList, List<ChatMessage> chatMessageList) {
+=======
     public User(String email, String password, String nickname, String imagePath, String tel, Float rate,
                 Si si, Gu gu, BigCategory concern, List<Item> sellerItemList, List<Item> buyerItemList,
                 Blame blame, Wish wish, List<ChatRoom> chatRoomList, List<ChatMessage> chatMessageList) {
 
+>>>>>>> 5f6ddc192d5da1e5da83ef669ff6cf3240b533d6
         this.email = email;
         this.password = password;
         this.nickname = nickname;
@@ -85,7 +91,11 @@ public class User {
         this.sellerItemList = sellerItemList;
         this.buyerItemList = buyerItemList;
         this.blame = blame;
+<<<<<<< HEAD
+        this.wishList = wishList;
+=======
         this.wish = wish;
+>>>>>>> 5f6ddc192d5da1e5da83ef669ff6cf3240b533d6
         this.chatRoomList = chatRoomList;
         this.chatMessageList = chatMessageList;
     }

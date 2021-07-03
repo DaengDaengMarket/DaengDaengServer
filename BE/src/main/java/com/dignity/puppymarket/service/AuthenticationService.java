@@ -8,14 +8,13 @@ import com.dignity.puppymarket.error.AuthenticationBadRequestException;
 import com.dignity.puppymarket.error.InvalidTokenException;
 import com.dignity.puppymarket.repository.RoleRepository;
 import com.dignity.puppymarket.repository.UserRepository;
+import com.dignity.puppymarket.utils.JwtUtil;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.dignity.puppymarket.utils.JwtUtil;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
-
 
 @Service
 public class AuthenticationService {
@@ -35,7 +34,6 @@ public class AuthenticationService {
     }
 
     public SessionResponseDto createToken(AuthenticationCreateDto authenticationCreateDto) {
-        System.out.println("authenticationCreateDto = " + authenticationCreateDto);
         UserLoginResponseDto userLoginResponseDto = authenticateUser(
                 authenticationCreateDto.getEmail(),
                 authenticationCreateDto.getPassword()

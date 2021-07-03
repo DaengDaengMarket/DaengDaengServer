@@ -6,12 +6,13 @@ import com.dignity.puppymarket.domain.Item;
 import com.dignity.puppymarket.domain.ItemStatus;
 import com.dignity.puppymarket.domain.MidCategory;
 import com.dignity.puppymarket.domain.NegoStatus;
+import com.dignity.puppymarket.domain.Pagination;
 import com.dignity.puppymarket.domain.Si;
 import com.dignity.puppymarket.domain.User;
 import com.dignity.puppymarket.dto.BlameGetResponseDto;
 import com.dignity.puppymarket.dto.ChatRoomGetResponseDto;
 import com.dignity.puppymarket.dto.ItemImageResponseDto;
-import com.dignity.puppymarket.dto.ReviewGetResponseDto;
+import com.dignity.puppymarket.dto.Review.ReviewGetResponseDto;
 import com.dignity.puppymarket.dto.WishGetResponseDto;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -67,6 +68,8 @@ public class ItemResponseDto {
     private ReviewGetResponseDto reviewGetResponseDto;
 
     private List<ChatRoomGetResponseDto> chatRoomList;
+
+    private Pagination pagination;
 
     public static ItemResponseDto of(Item item) {
         return ItemResponseDto.builder()

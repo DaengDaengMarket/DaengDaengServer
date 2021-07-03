@@ -8,6 +8,9 @@ import com.dignity.puppymarket.dto.Item.ItemResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemUpdateRequestDto;
 import com.dignity.puppymarket.dto.Item.ItemUpdateResponseDto;
 import com.dignity.puppymarket.service.ItemService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,8 +32,9 @@ public class ItemController {
     }
 
     @GetMapping("")
-    public List<ItemResponseDto> list() {
-        return itemService.getItems();
+    public List<ItemResponseDto> list(
+            @PageableDefault(direction = Sort.Direction.DESC, size = 12, sort = "id") Pageable pageable) {
+        return itemService.getItems(pageable);
     }
 
     @GetMapping("/{id}")

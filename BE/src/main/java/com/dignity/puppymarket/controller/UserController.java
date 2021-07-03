@@ -3,6 +3,7 @@ package com.dignity.puppymarket.controller;
 import com.dignity.puppymarket.dto.User.UserRequestDto;
 import com.dignity.puppymarket.dto.User.UserResponseDto;
 import com.dignity.puppymarket.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
@@ -21,6 +22,7 @@ public class UserController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public String addUser(@RequestBody UserRequestDto userDto) {
         return userService.join(userDto);
     }
