@@ -1,5 +1,7 @@
 package com.dignity.puppymarket.service;
 
+import com.dignity.puppymarket.domain.Advertise;
+import com.dignity.puppymarket.dto.AdvertiseRequestDto;
 import com.dignity.puppymarket.dto.AdvertiseResponseDto;
 import com.dignity.puppymarket.repository.AdvertiseRepository;
 import org.springframework.stereotype.Service;
@@ -19,5 +21,11 @@ public class AdvertiseService {
         return advertiseRepository.findAll().stream()
                 .map(AdvertiseResponseDto::of)
                 .collect(Collectors.toList());
+    }
+
+    public AdvertiseResponseDto createAdvertise(AdvertiseRequestDto advertiseRequestDto) {
+        Advertise advertise = advertiseRequestDto.toEntity();
+        advertiseRepository.save(advertise);
+        return AdvertiseResponseDto.of(advertise);
     }
 }
