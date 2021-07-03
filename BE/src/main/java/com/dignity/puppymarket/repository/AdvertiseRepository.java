@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface AdvertiseRepository extends CrudRepository<Advertise, Long> {
     List<Advertise> findAll();
+
+    Advertise save(Advertise advertise);
 }
