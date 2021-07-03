@@ -12,6 +12,7 @@ import com.dignity.puppymarket.utils.JwtUtil;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.dignity.puppymarket.utils.JwtUtil;
 
 import java.util.List;
 
@@ -33,7 +34,6 @@ public class AuthenticationService {
     }
 
     public SessionResponseDto createToken(AuthenticationCreateDto authenticationCreateDto) {
-        System.out.println("authenticationCreateDto = " + authenticationCreateDto);
         UserLoginResponseDto userLoginResponseDto = authenticateUser(
                 authenticationCreateDto.getEmail(),
                 authenticationCreateDto.getPassword()

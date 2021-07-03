@@ -1,5 +1,8 @@
 package com.dignity.puppymarket.service;
 
+import com.dignity.puppymarket.domain.User;
+import com.dignity.puppymarket.dto.User.UserRequestDto;
+import com.dignity.puppymarket.error.DuplicateUserException;
 import com.dignity.puppymarket.dto.User.UserResponseDto;
 import com.dignity.puppymarket.domain.User;
 import com.dignity.puppymarket.dto.UserRequestDto;

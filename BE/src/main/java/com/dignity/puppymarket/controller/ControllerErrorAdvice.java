@@ -2,6 +2,7 @@ package com.dignity.puppymarket.controller;
 
 import com.dignity.puppymarket.dto.ErrorResponse;
 import com.dignity.puppymarket.error.AdvertiseNotFoundException;
+import com.dignity.puppymarket.error.DuplicateUserException;
 import com.dignity.puppymarket.error.AuthenticationBadRequestException;
 import com.dignity.puppymarket.error.DuplicateUserException;
 import com.dignity.puppymarket.error.InvalidTokenException;
