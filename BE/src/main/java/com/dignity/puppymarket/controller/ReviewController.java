@@ -19,7 +19,7 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/review/{id}")
     public ReviewGetResponseDto detail(@PathVariable Long id) {
         return reviewService.getReview(id);
     }
