@@ -11,14 +11,14 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-public class NoticeResponseDto {
+public class NoticeRequestDto {
 
 
     private String title;
     private String content;
 
     @Builder
-    public NoticeResponseDto(String title, String content) {
+    public NoticeRequestDto(String title, String content) {
         this.title = title;
         this.content = content;
     }
