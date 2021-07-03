@@ -33,11 +33,11 @@ public class NoticeService {
     }
 
     @Transactional
-    public Optional<Notice> updateNotice(Long id, NoticeRequestDto form){
+    public Notice updateNotice(Long id, NoticeRequestDto form){
         Notice notice = noticeRepository.findById(id).get();
         Notice updateNotice = form.toEntity();
         notice.update(updateNotice);
-        return noticeRepository.findById(id);
+        return notice;
 
     }
 

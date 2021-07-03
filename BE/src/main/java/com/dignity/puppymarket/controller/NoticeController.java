@@ -43,7 +43,7 @@ public class NoticeController {
     }
 
     @PutMapping("/notice/{id}")
-    public Optional<Notice> updateNotice(@PathVariable Long id, @RequestBody NoticeRequestDto form){
+    public Notice updateNotice(@PathVariable Long id, @RequestBody NoticeRequestDto form){
         return noticeService.updateNotice(id, form);
     }
 
