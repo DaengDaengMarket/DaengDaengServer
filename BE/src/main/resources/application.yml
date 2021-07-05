@@ -15,7 +15,7 @@ spring:
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
     # Query show
     show-sql: true
@@ -29,3 +29,6 @@ spring:
 
 jwt:
   secret: "12345678901234567890123456789010"
+
+geolocation:
+  apikey: "AIzaSyB8QGX4rC9l9eZC0v3oJBxFB0bjylNzZ-8"

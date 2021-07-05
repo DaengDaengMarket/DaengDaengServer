@@ -21,10 +21,6 @@ public class UserRequestDto {
 
     private String imagePath;
 
-    private Si si;
-
-    private Gu gu;
-
     public User toEntity() {
         return User.builder()
                 .email(email)
