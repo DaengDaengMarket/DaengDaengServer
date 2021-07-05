@@ -9,7 +9,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/puppy?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
-    password: 8956
+    password: 1234
 
   # Spring Jpa ddl
   jpa:
