@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class NoticeService {
@@ -26,8 +25,6 @@ public class NoticeService {
         return noticeRepository.findAll();
     }
 
-
-
     public Notice getNotice(Long id){
         return noticeRepository.findById(id).get();
     }
@@ -38,9 +35,7 @@ public class NoticeService {
         Notice updateNotice = form.toEntity();
         notice.update(updateNotice);
         return notice;
-
     }
-
 
     public void deleteNotice(Long id){
         noticeRepository.deleteById(id);

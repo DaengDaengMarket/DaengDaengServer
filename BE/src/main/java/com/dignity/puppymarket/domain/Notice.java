@@ -1,11 +1,11 @@
 package com.dignity.puppymarket.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 
 @Entity
 @Builder
@@ -39,6 +39,7 @@ public class Notice {
                 '}';
     }
 
+    // 기존의 내용을 update로 변경한다.
     public void update(Notice form) {
         this.title = form.getTitle();
         this.content = form.getContent();

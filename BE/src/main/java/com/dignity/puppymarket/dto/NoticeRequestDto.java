@@ -5,14 +5,10 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString
 public class NoticeRequestDto {
-
 
     private String title;
     private String content;
@@ -30,7 +26,6 @@ public class NoticeRequestDto {
                 ", content='" + content + '\'' +
                 '}';
     }
-
 
     public Notice toEntity() {
         return new Notice(null, title, content );

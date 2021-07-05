@@ -21,15 +21,9 @@ public class UserRequestDto {
 
     private String imagePath;
 
-    private Float rate;
-
     private Si si;
 
     private Gu gu;
-
-    private Blame blame;
-
-    private Wish wish;
 
     public User toEntity() {
         return User.builder()
@@ -39,11 +33,6 @@ public class UserRequestDto {
                 .concern(concern)
                 .tel(tel)
                 .imagePath(imagePath)
-                .rate(rate)
-                .si(si)
-                .gu(gu)
-                .blame(blame)
-                .wish(wish)
                 .build();
     }
 }
