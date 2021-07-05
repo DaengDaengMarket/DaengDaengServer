@@ -1,6 +1,7 @@
 package com.dignity.puppymarket.controller;
 
 import com.dignity.puppymarket.domain.Notice;
+
 import com.dignity.puppymarket.dto.NoticeRequestDto;
 import com.dignity.puppymarket.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,6 @@ public class NoticeController {
     @DeleteMapping("/notice/{id}")
     public void deleteNotice(@PathVariable Long id) {
         noticeService.deleteNotice(id);
+
     }
 }
