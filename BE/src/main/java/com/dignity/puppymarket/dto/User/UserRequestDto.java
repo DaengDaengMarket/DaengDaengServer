@@ -23,8 +23,6 @@ public class UserRequestDto {
 
     private String imagePath;
 
-    private Float rate;
-
     private Si si;
 
     private Gu gu;
@@ -41,7 +39,6 @@ public class UserRequestDto {
                 .concern(concern)
                 .tel(tel)
                 .imagePath(imagePath)
-                .rate(rate)
                 .si(si)
                 .gu(gu)
                 .blame(blame)

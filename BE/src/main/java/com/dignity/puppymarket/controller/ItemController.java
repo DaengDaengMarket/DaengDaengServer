@@ -57,4 +57,6 @@ public class ItemController {
     public ItemDeleteResponseDto delete(@PathVariable Long id) {
         return itemService.deleteItem(id);
     }
+
+//    @GetMapping("/")
 }
