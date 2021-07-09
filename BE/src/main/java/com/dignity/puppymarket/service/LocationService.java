@@ -26,7 +26,7 @@ public class LocationService {
         String si = address[1];
         String gu = address[2];
 
-        return LocationResponseDto.of()
+        return LocationResponseDto.of(null, null);
     }
 
     public String getApiAddress(LocationRequestDto locationRequestDto) {
