@@ -1,7 +1,5 @@
 package com.dignity.puppymarket.dto;
 
-import com.dignity.puppymarket.domain.Gu;
-import com.dignity.puppymarket.domain.Si;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,17 +10,17 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class LocationResponseDto {
-    private Si si;
+    private String si;
 
-    private Gu gu;
+    private String gu;
 
     @Builder
-    public LocationResponseDto(Si si, Gu gu) {
+    public LocationResponseDto(String si, String gu) {
         this.si = si;
         this.gu = gu;
     }
 
-    public static LocationResponseDto of(Si si, Gu gu) {
+    public static LocationResponseDto of(String si, String gu) {
         return LocationResponseDto.builder()
                 .si(si)
                 .gu(gu)
