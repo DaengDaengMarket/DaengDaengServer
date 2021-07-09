@@ -1,5 +1,6 @@
 package com.dignity.puppymarket.domain;
 
+import com.dignity.puppymarket.dto.LocationCreateRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,7 +8,16 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,5 +105,13 @@ public class User {
 
     public void updatePassword(String password, PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(password);
+    }
+
+    public void updateLocationWith(String guCode, String siCode) {
+        Gu gu = Gu.findByGuCode(guCode);
+        Si si = Si.findBySiCode(siCode);
+
+        this.gu = gu;
+        this.si = si;
     }
 }

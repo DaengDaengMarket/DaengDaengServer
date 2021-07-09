@@ -1,7 +1,11 @@
 package com.dignity.puppymarket.service;
 
+import com.dignity.puppymarket.domain.User;
+import com.dignity.puppymarket.dto.LocationCreateRequestDto;
 import com.dignity.puppymarket.dto.LocationRequestDto;
 import com.dignity.puppymarket.dto.LocationResponseDto;
+import com.dignity.puppymarket.error.UserNotFoundException;
+import com.dignity.puppymarket.repository.UserRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -18,6 +22,12 @@ import java.nio.charset.StandardCharsets;
 public class LocationService {
     @Value("${geolocation.apikey")
     private String apiKey;
+
+    private final UserRepository userRepository;
+
+    public LocationService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public LocationResponseDto findLocation(LocationRequestDto locationRequestDto) throws Exception {
         String apiAddress = getApiAddress(locationRequestDto);
@@ -57,5 +67,16 @@ public class LocationService {
         JSONArray jArray = (JSONArray) jObj.get("results");
         jObj = (JSONObject) jArray.get(0);
         return (String) jObj.get("formatted_address");
+    }
+
+    public LocationResponseDto saveLocation(Long id, LocationCreateRequestDto locationCreateRequestDto) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+
+        String guCode = locationCreateRequestDto.getGu();
+        String siCode = locationCreateRequestDto.getSi();
+        user.updateLocationWith(guCode, siCode);
+
+        return LocationResponseDto.of(guCode, siCode);
     }
 }
