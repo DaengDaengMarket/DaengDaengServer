@@ -43,6 +43,5 @@ public class NoticeController {
     @DeleteMapping("/notice/{id}")
     public void deleteNotice(@PathVariable Long id) {
         noticeService.deleteNotice(id);
-
     }
 }

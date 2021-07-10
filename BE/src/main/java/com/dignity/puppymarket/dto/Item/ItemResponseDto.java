@@ -9,7 +9,7 @@ import com.dignity.puppymarket.domain.NegoStatus;
 import com.dignity.puppymarket.domain.Pagination;
 import com.dignity.puppymarket.domain.Si;
 import com.dignity.puppymarket.domain.User;
-import com.dignity.puppymarket.dto.BlameGetResponseDto;
+import com.dignity.puppymarket.dto.Blame.BlameGetResponseDto;
 import com.dignity.puppymarket.dto.ChatRoomGetResponseDto;
 import com.dignity.puppymarket.dto.ItemImageResponseDto;
 import com.dignity.puppymarket.dto.Review.ReviewGetResponseDto;
