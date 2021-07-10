@@ -31,8 +31,13 @@ public class Categories {
     private String name;
 
     //Categories 1 : N Item
-    @OneToMany
+    @OneToMany(mappedBy = "categories")
     private List<Item> itemList = new ArrayList<>();
+
+    public void addItems(Item item) {
+        this.itemList.add(item);
+        item.setCategories(this);
+    }
 
     //Categories(child) N : 1 Categories(parent)
     @ManyToOne(fetch = FetchType.LAZY)

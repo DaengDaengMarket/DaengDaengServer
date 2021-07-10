@@ -6,12 +6,13 @@ import com.dignity.puppymarket.domain.Item;
 import com.dignity.puppymarket.domain.ItemStatus;
 import com.dignity.puppymarket.domain.MidCategory;
 import com.dignity.puppymarket.domain.NegoStatus;
+import com.dignity.puppymarket.domain.Pagination;
 import com.dignity.puppymarket.domain.Si;
 import com.dignity.puppymarket.domain.User;
 import com.dignity.puppymarket.dto.BlameGetResponseDto;
 import com.dignity.puppymarket.dto.ChatRoomGetResponseDto;
 import com.dignity.puppymarket.dto.ItemImageResponseDto;
-import com.dignity.puppymarket.dto.ReviewGetResponseDto;
+import com.dignity.puppymarket.dto.Review.ReviewGetResponseDto;
 import com.dignity.puppymarket.dto.WishGetResponseDto;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -58,7 +59,7 @@ public class ItemResponseDto {
 
     private User buyer;
 
-    private List<ItemImageResponseDto> itemImageList;
+    private ItemImageResponseDto itemImageResponseDto;
 
     private List<BlameGetResponseDto> blameList;
 
@@ -67,6 +68,8 @@ public class ItemResponseDto {
     private ReviewGetResponseDto reviewGetResponseDto;
 
     private List<ChatRoomGetResponseDto> chatRoomList;
+
+    private Pagination pagination;
 
     public static ItemResponseDto of(Item item) {
         return ItemResponseDto.builder()
@@ -85,10 +88,12 @@ public class ItemResponseDto {
                 .gu(item.getGu())
                 .seller(item.getSeller())
                 .buyer(item.getBuyer())
-                .itemImageList(
+                .itemImageResponseDto(
                         item.getItemImageList().stream()
+                            .filter(i -> i.getOrders() == 1)
                             .map(ItemImageResponseDto::of)
-                            .collect(Collectors.toList())
+                            .findAny()
+                            .orElse(null)
                 )
                 .blameList(
                         item.getBlameList().stream()

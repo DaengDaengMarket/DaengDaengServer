@@ -49,7 +49,7 @@ class UserControllerTest {
         ResponseEntity<String> responseEntity = testRestTemplate.postForEntity(url, userDto, String.class);
 
         //then
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(responseEntity.getBody()).hasSizeGreaterThan(0);
 
         List<User> findUserByEmail = jpaUserRepository.findByEmail(email);

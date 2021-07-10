@@ -1,53 +1,48 @@
 package com.dignity.puppymarket.controller;
 
 import com.dignity.puppymarket.domain.Notice;
+
+import com.dignity.puppymarket.dto.NoticeRequestDto;
 import com.dignity.puppymarket.service.NoticeService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
-@Controller
-@RequiredArgsConstructor
+@RestController
 public class NoticeController {
 
-    private final NoticeService noticeService;
+    @Autowired//스프링부트가 알아서 객채 생성및 연결
+    private NoticeService noticeService;
 
+    //메인화면 보여주기
     @GetMapping("/notice")
-    public String getNotices(Model model) {
-        List<Notice> notices = noticeService.getNotices();
-        model.addAttribute("notices", notices);
-        return "notice";
+    public List<Notice> viewNotice() {
+        return noticeService.viewNotice();
     }
 
+    //프론트의 내용 받기
     @PostMapping("/notice")
-    public String saveNotice(@RequestParam("title") String title,
-                             @RequestParam("content") String content
-    ) {
-
-        Notice notice = new Notice();
-        notice.setTitle(title);
-        notice.setContent(content);
-        notice.setCreatedAt(LocalDateTime.now());
-
-        noticeService.saveNotice(notice);
-        return "redirect:/notice";
+    @ResponseStatus(HttpStatus.CREATED)
+    public Notice createNotice(@RequestBody NoticeRequestDto form){
+        return noticeService.saveNotice(form);
     }
 
-    @GetMapping("/make")
-    public String goWriteForm() {
-        return "noticeForm";
+    //수정 게시글 상세보기
+    @GetMapping("/notice/{id}")
+    public Notice getNotice(@PathVariable Long id) {
+        return noticeService.getNotice(id);
+    }
+
+    @PutMapping("/notice/{id}")
+    public Notice updateNotice(@PathVariable Long id, @RequestBody NoticeRequestDto form){
+        return noticeService.updateNotice(id, form);
     }
 
     @DeleteMapping("/notice/{id}")
-    public String deleteNotice(@PathVariable Long id) {
-        Notice notice = noticeService.getNotice(id);
-        noticeService.deleteNotice(notice);
-        return "redirect:/notice";
-    }
+    public void deleteNotice(@PathVariable Long id) {
+        noticeService.deleteNotice(id);
 
+    }
 }

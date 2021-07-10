@@ -1,6 +1,8 @@
 package com.dignity.puppymarket.domain;
 
-public enum Gu {
+import java.util.Arrays;
+
+public enum Gu implements EnumMapperType {
     JONGNOGU("종로구"),
     JUNGGU("중구"),
     YONGSANGU("용산구"),
@@ -33,7 +35,20 @@ public enum Gu {
         this.title = title;
     }
 
+    @Override
+    public String getCode() {
+        return name();
+    }
+
+    @Override
     public String getTitle() {
-        return title;
+        return this.title;
+    }
+
+    public static Gu findByGuCode(String code) {
+        return Arrays.stream(Gu.values())
+                .filter(gu -> gu.getCode().equals(code))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("구 설정이 잘못되었습니다 : " + code));
     }
 }

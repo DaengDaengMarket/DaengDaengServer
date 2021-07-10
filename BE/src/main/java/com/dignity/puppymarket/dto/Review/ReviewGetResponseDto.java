@@ -1,4 +1,4 @@
-package com.dignity.puppymarket.dto;
+package com.dignity.puppymarket.dto.Review;
 
 import com.dignity.puppymarket.domain.Review;
 import lombok.AccessLevel;
