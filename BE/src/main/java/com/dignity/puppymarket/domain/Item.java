@@ -1,11 +1,7 @@
 package com.dignity.puppymarket.domain;
 
 import com.dignity.puppymarket.dto.Item.ItemUpdateRequestDto;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -26,12 +22,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Setter
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Table(name = "item")
-@ToString(exclude = {"seller", "buyer", "itemImageList", "blameList", "wishList", "review", "chatRoomList"})
+@ToString(exclude = {"seller", "buyer", "itemImageList", "blameList", "wishList", "review", "chatRoomList", "categories"})
 public class Item {
     @Id
     @GeneratedValue
@@ -43,6 +40,10 @@ public class Item {
     private int price;
 
     private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categories_id")
+    private Categories categories;
 
     @Builder.Default
     private int hit = 0;
@@ -102,7 +103,7 @@ public class Item {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChatRoom> chatRoomList = new ArrayList<>();
 
-    public Item(Long id, String name, int price, String description, int hit, ItemStatus itemStatus,
+    public Item(Long id, String name, int price, String description, Categories categories, int hit, ItemStatus itemStatus,
                 NegoStatus negoStatus, BigCategory bigCategory, MidCategory midCategory, LocalDateTime createdAt,
                 LocalDateTime updatedAt, Si si, Gu gu, User seller, User buyer, List<ItemImage> itemImageList,
                 List<Blame> blameList, List<Wish> wishList, Review review, List<ChatRoom> chatRoomList) {
@@ -110,6 +111,7 @@ public class Item {
         this.name = name;
         this.price = price;
         this.description = description;
+        this.categories = categories;
         this.hit = hit;
         this.itemStatus = itemStatus;
         this.negoStatus = negoStatus;
@@ -132,6 +134,7 @@ public class Item {
         this.name = itemUpdateRequestDto.getName();
         this.price = itemUpdateRequestDto.getPrice();
         this.description = itemUpdateRequestDto.getDescription();
+        this.categories = itemUpdateRequestDto.getCategories();
         this.itemStatus = itemUpdateRequestDto.getItemStatus();
         this.negoStatus = itemUpdateRequestDto.getNegoStatus();
         this.bigCategory = itemUpdateRequestDto.getBigCategory();

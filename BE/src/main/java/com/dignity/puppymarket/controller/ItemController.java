@@ -1,12 +1,6 @@
 package com.dignity.puppymarket.controller;
 
-import com.dignity.puppymarket.dto.Item.ItemCreateRequestDto;
-import com.dignity.puppymarket.dto.Item.ItemCreateResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemDeleteResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemGetResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemUpdateRequestDto;
-import com.dignity.puppymarket.dto.Item.ItemUpdateResponseDto;
+import com.dignity.puppymarket.dto.Item.*;
 import com.dignity.puppymarket.service.ItemService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -58,5 +52,9 @@ public class ItemController {
         return itemService.deleteItem(id);
     }
 
-//    @GetMapping("/")
+    @GetMapping("/categories/{id}/{name}")
+    public List<ItemCategoryGetResponseDto> getItemInCategory(@PathVariable Long id,
+                                                        @PathVariable String name) {
+        return itemService.getCategoryItem(id, name);
+    }
 }

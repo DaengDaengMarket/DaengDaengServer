@@ -1,12 +1,6 @@
 package com.dignity.puppymarket.dto.Item;
 
-import com.dignity.puppymarket.domain.BigCategory;
-import com.dignity.puppymarket.domain.Gu;
-import com.dignity.puppymarket.domain.ItemImage;
-import com.dignity.puppymarket.domain.ItemStatus;
-import com.dignity.puppymarket.domain.MidCategory;
-import com.dignity.puppymarket.domain.NegoStatus;
-import com.dignity.puppymarket.domain.Si;
+import com.dignity.puppymarket.domain.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +18,8 @@ public class ItemUpdateRequestDto {
 
     private String description;
 
+    private Categories categories;
+
     private ItemStatus itemStatus;
 
     private NegoStatus negoStatus;
@@ -38,12 +34,13 @@ public class ItemUpdateRequestDto {
 
     private Gu gu;
 
-    public ItemUpdateRequestDto(String name, int price, String description, ItemStatus itemStatus,
+    public ItemUpdateRequestDto(String name, int price, String description, Categories categories, ItemStatus itemStatus,
                                 NegoStatus negoStatus, BigCategory bigCategory, MidCategory midCategory,
                                 List<ItemImage> itemImageList, Si si, Gu gu) {
         this.name = name;
         this.price = price;
         this.description = description;
+        this.categories = categories;
         this.itemStatus = itemStatus;
         this.negoStatus = negoStatus;
         this.bigCategory = bigCategory;

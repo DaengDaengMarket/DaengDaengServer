@@ -2,16 +2,11 @@ package com.dignity.puppymarket.service;
 
 import com.dignity.puppymarket.domain.Item;
 import com.dignity.puppymarket.domain.Pagination;
-import com.dignity.puppymarket.dto.Item.ItemCreateRequestDto;
-import com.dignity.puppymarket.dto.Item.ItemCreateResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemDeleteResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemGetResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemHomeGetResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemUpdateRequestDto;
-import com.dignity.puppymarket.dto.Item.ItemUpdateResponseDto;
+import com.dignity.puppymarket.dto.Item.*;
 import com.dignity.puppymarket.error.ItemNotFoundException;
 import com.dignity.puppymarket.repository.ItemRepository;
+import com.dignity.puppymarket.repository.JpaItemRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +16,11 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ItemService {
-    private final ItemRepository itemRepository;
 
-    public ItemService(ItemRepository itemRepository) {
-        this.itemRepository = itemRepository;
-    }
+    private final ItemRepository itemRepository;
+    private final JpaItemRepository jpaItemRepository;
 
     public List<ItemResponseDto> getItems(Pageable pageable) {
         return itemRepository.findAll(pageable).stream()
@@ -75,5 +69,11 @@ public class ItemService {
     public Item findItem(Long id) {
         return itemRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException(id));
+    }
+
+    public List<ItemCategoryGetResponseDto> getCategoryItem(Long id, String name) {
+        return  jpaItemRepository.getItemsInCategory(id, name).stream()
+                .map(item -> ItemCategoryGetResponseDto.of(item))
+                .collect(Collectors.toList());
     }
 }
