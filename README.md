@@ -70,9 +70,9 @@ __________
 3. JPA(entityManager)를 사용하는 repository 추가(회원가입과 이메일로 회원들 찾기)
 4. 회원가입, 중복 체크 단위 테스트 및 Controller API 테스트
 
-![스크린샷 2021-06-26 오전 3 13 23](https://user-images.githubusercontent.com/68089565/123473444-8819cb00-d633-11eb-92f0-0b3f0f5ed761.png)
+![스크린샷 2021-06-26 오전 3 13 23](https://user-images.githubusercontent.com/68089565/123473444-8819cb00-d633-11eb-92f0-0b3f0f5ed761.png)
 
-<img width="1014" alt="스크린샷 2021-06-26 오전 3 44 03" src="https://user-images.githubusercontent.com/68089565/123473493-9b2c9b00-d633-11eb-902a-cab98b0006e2.png">
+<img width="1014" alt="스크린샷 2021-06-26 오전 3 44 03" src="https://user-images.githubusercontent.com/68089565/123473493-9b2c9b00-d633-11eb-902a-cab98b0006e2.png">
 
 ## API TEST CODE
 > 아래와 같이 작성 시 랜덤 포트에서도 테스트가 가능하고 api의 기능이 정상 작동하는지(HTTP상태코드, 결과값)를 확인 가능합니다.
@@ -121,7 +121,7 @@ class UserControllerTest {
 
 ```
 #### 결과
-![스크린샷 2021-06-26 오전 3 45 35](https://user-images.githubusercontent.com/68089565/123473484-9667e700-d633-11eb-8995-23fe540e5abc.png)
+![스크린샷 2021-06-26 오전 3 45 35](https://user-images.githubusercontent.com/68089565/123473484-9667e700-d633-11eb-8995-23fe540e5abc.png)
 </details>
 
 <details>
@@ -137,7 +137,7 @@ class UserControllerTest {
 (판매정보, 구매정보, 리뷰, 동네인증)
 - 아직 동네인증은 구현하지 않았습니다
 
-> 홈화면, 마이페이지 페이징 구현
+> 홈화면, 페이지 바 구현
 
 > 리뷰작성 구현
 
@@ -172,10 +172,10 @@ class UserControllerTest {
 
 ## 파트 소개
 | 이름  |  메인 역할  |
-|:----:|:-------:|
+|:——:|:———:|
 | [강경민](https://github.com/kangkyoungmin) | `프론트엔드` |
 | [장성필](https://github.com/hackjap) | `프론트엔드` |
 | [김준현](https://github.com/whitejh) | `프론트엔드` |
 | [백성규](https://github.com/sunggyupaik) | `백엔드` |
 | [송영섭](https://github.com/LastCow9000)  | `백엔드` |
-| [박준철](https://github.com/godtaehee)  | `백엔드` |  
+| [박준철](https://github.com/godtaehee)  | `백엔드` |

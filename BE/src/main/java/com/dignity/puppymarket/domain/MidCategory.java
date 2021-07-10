@@ -1,6 +1,8 @@
 package com.dignity.puppymarket.domain;
 
-public enum MidCategory {
+import java.util.Arrays;
+
+public enum MidCategory implements EnumMapperType {
     FEED("사료"),
     HYGIENE("위생"),
     BEAUTY("미용"),
@@ -17,7 +19,20 @@ public enum MidCategory {
         this.title = title;
     }
 
+    @Override
+    public String getCode() {
+        return name();
+    }
+
+    @Override
     public String getTitle() {
-        return title;
+        return this.title;
+    }
+
+    public static MidCategory findByMidCategoryCode(String code) {
+        return Arrays.stream(MidCategory.values())
+                .filter(mid -> mid.getCode().equals(code))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("중분류 카테고리 설정이 잘못되었습니다 : " + code));
     }
 }

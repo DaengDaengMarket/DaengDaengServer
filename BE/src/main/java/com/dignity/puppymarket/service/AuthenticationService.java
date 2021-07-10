@@ -16,6 +16,7 @@ import com.dignity.puppymarket.utils.JwtUtil;
 
 import java.util.List;
 
+
 @Service
 public class AuthenticationService {
     private final UserRepository userRepository;
