@@ -1,6 +1,8 @@
 package com.dignity.puppymarket.domain;
 
-public enum BigCategory {
+import java.util.Arrays;
+
+public enum BigCategory implements EnumMapperType {
     BIG("대형견"),
     MID("중형견"),
     SMALL("소형견");
@@ -11,7 +13,20 @@ public enum BigCategory {
         this.title = title;
     }
 
+    @Override
+    public String getCode() {
+        return name();
+    }
+
+    @Override
     public String getTitle() {
-        return title;
+        return this.title;
+    }
+
+    public static BigCategory findByBigCategoryCode(String code) {
+        return Arrays.stream(BigCategory.values())
+                .filter(big -> big.getCode().equals(code))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("대분류 카테고리 설정이 잘못되었습니다 : " + code));
     }
 }
