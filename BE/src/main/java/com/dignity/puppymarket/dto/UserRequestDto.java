@@ -24,6 +24,7 @@ public class UserRequestDto {
     private Si si;
 
     private Gu gu;
+
     public User toEntity() {
         return User.builder()
                 .email(email)

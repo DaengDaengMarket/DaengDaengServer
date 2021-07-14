@@ -69,10 +69,9 @@ public class User {
     private List<ChatMessage> chatMessageList = new ArrayList<>();
 
     @Builder
-    public User(Long id, String email, String password, String nickname, String imagePath, String tel, Float rate, Si si, Gu gu,
-                BigCategory concern, List<Item> sellerItemList, List<Item> buyerItemList, List<Blame> blameList,
-                List<Wish> wishList, List<ChatRoom> chatRoomList, List<ChatMessage> chatMessageList) {
-        this.id = id;
+    public User(String email, String password, String nickname, String imagePath, String tel, Float rate,
+                Si si, Gu gu, BigCategory concern, List<Item> sellerItemList, List<Item> buyerItemList,
+                Blame blame, List<Wish> wishList, List<ChatRoom> chatRoomList, List<ChatMessage> chatMessageList) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
