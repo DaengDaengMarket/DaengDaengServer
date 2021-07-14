@@ -8,10 +8,12 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -32,6 +34,7 @@ import java.util.List;
 @Builder
 @Table(name = "item")
 @ToString(exclude = {"seller", "buyer", "itemImageList", "blameList", "wishList", "review", "chatRoomList"})
+@EntityListeners(AuditingEntityListener.class)
 public class Item {
     @Id
     @GeneratedValue
@@ -143,5 +146,9 @@ public class Item {
 
     public void addReview(Review review) {
         this.review = review;
+    }
+
+    public void addBlame(Blame blame) {
+        blameList.add(blame);
     }
 }

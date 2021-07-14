@@ -5,17 +5,18 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "user")
-@ToString(exclude = {"sellerItemList", "buyerItemList", "blame", "wishList", "chatRoomList", "chatMessageList"})
+@ToString(exclude = {"sellerItemList", "buyerItemList", "blameList", "wishList", "chatRoomList", "chatMessageList"})
+@EntityListeners(AuditingEntityListener.class)
 public class User {
     @Id
     @GeneratedValue
@@ -82,7 +84,7 @@ public class User {
     @Builder
     public User(String email, String password, String nickname, String name, String imagePath, String tel, Float rate,
                 Si si, Gu gu, BigCategory concern, List<Item> sellerItemList, List<Item> buyerItemList,
-                Blame blame, List<Wish> wishList, List<ChatRoom> chatRoomList, List<ChatMessage> chatMessageList) {
+                List<Blame> blameList, List<Wish> wishList, List<ChatRoom> chatRoomList, List<ChatMessage> chatMessageList) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
@@ -119,5 +121,9 @@ public class User {
 
     public boolean isSame(String userEmail) {
         return this.email.equals(userEmail);
+    }
+
+    public void addBlame(Blame blame) {
+        blameList.add(blame);
     }
 }
