@@ -42,6 +42,5 @@ public class BlameRequestDto {
                         .id(itemId)
                         .build())
                 .build();
-
     }
 }

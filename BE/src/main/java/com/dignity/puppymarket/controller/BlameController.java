@@ -21,10 +21,10 @@ public class BlameController {
         return blameService.viewBlame();
     }
 
-    @PostMapping("")
+    @PostMapping("/item/{itemId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Blame createBlame(@RequestBody BlameRequestDto form){
-        return blameService.saveBlame(form);
+    public Blame createBlame(@PathVariable Long itemId, @RequestBody BlameRequestDto form){
+        return blameService.saveBlame(itemId ,form);
     }
 
     @DeleteMapping("/{id}")

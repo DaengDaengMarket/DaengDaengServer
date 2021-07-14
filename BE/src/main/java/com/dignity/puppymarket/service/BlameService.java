@@ -15,7 +15,7 @@ public class BlameService {
         this.blameRepository = blameRepository;
     }
 
-    public Blame saveBlame(BlameRequestDto form){
+    public Blame saveBlame(Long id, BlameRequestDto form){
         Blame blame = form.toEntity();
         return blameRepository.save(blame);
     }
