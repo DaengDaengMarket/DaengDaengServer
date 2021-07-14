@@ -52,9 +52,9 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "buyer")
     List<Item> buyerItemList = new ArrayList<>();
 
-    //User 1 : 1 Blame
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
-    private Blame blame;
+    //User 1 : N Blame
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    List<Blame> blameList = new ArrayList<>();
 
     //User 1 : N Wish
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
@@ -83,7 +83,7 @@ public class User {
         this.concern = concern;
         this.sellerItemList = sellerItemList;
         this.buyerItemList = buyerItemList;
-        this.blame = blame;
+        this.blameList = blameList;
         this.wishList = wishList;
         this.chatRoomList = chatRoomList;
         this.chatMessageList = chatMessageList;

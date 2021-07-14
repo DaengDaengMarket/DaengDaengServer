@@ -5,7 +5,7 @@ import com.dignity.puppymarket.domain.Gu;
 import com.dignity.puppymarket.domain.Item;
 import com.dignity.puppymarket.domain.MidCategory;
 import com.dignity.puppymarket.domain.Si;
-import com.dignity.puppymarket.dto.BlameGetResponseDto;
+import com.dignity.puppymarket.dto.Blame.BlameGetResponseDto;
 import com.dignity.puppymarket.dto.ChatRoomGetResponseDto;
 import com.dignity.puppymarket.dto.ItemImageResponseDto;
 import com.dignity.puppymarket.dto.Review.ReviewGetResponseDto;
