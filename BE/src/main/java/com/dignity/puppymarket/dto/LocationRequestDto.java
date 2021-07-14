@@ -10,12 +10,12 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class LocationRequestDto {
-    private Long latitude;
+    private Double latitude;
 
-    private Long longitude;
+    private Double longitude;
 
     @Builder
-    public LocationRequestDto(Long latitude, Long longitude) {
+    public LocationRequestDto(Double latitude, Double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
