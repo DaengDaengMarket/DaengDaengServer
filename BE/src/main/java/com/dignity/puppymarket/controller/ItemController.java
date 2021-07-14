@@ -7,10 +7,13 @@ import com.dignity.puppymarket.dto.Item.ItemGetResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemUpdateRequestDto;
 import com.dignity.puppymarket.dto.Item.ItemUpdateResponseDto;
+import com.dignity.puppymarket.security.UserAuthentication;
 import com.dignity.puppymarket.service.ItemService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -43,18 +47,24 @@ public class ItemController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
     public ItemCreateResponseDto create(@RequestBody ItemCreateRequestDto itemCreateRequestDto) {
         return itemService.createItem(itemCreateRequestDto);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
     public ItemUpdateResponseDto update(@PathVariable Long id,
-                                        @RequestBody ItemUpdateRequestDto itemUpdateRequestDto) {
-        return itemService.updateItem(id, itemUpdateRequestDto);
+                                        @RequestBody ItemUpdateRequestDto itemUpdateRequestDto,
+                                        UserAuthentication userAuthentication) {
+        return itemService.updateItem(id, itemUpdateRequestDto, userAuthentication);
     }
 
     @DeleteMapping("/{id}")
-    public ItemDeleteResponseDto delete(@PathVariable Long id) {
-        return itemService.deleteItem(id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
+    public ItemDeleteResponseDto delete(@PathVariable Long id, UserAuthentication userAuthentication) {
+        return itemService.deleteItem(id, userAuthentication);
     }
 }

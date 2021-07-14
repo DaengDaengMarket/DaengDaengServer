@@ -20,6 +20,8 @@ public class UserMyPageInfoResponseDto {
 
     private String nickname;
 
+    private String name;
+
     private String imagePath;
 
     private String tel;
@@ -33,11 +35,12 @@ public class UserMyPageInfoResponseDto {
     private BigCategory concern;
 
     @Builder
-    public UserMyPageInfoResponseDto(Long id, String email, String nickname, String imagePath, String tel,
-                                     Float rate, Si si, Gu gu, BigCategory concern) {
+    public UserMyPageInfoResponseDto(Long id, String email, String nickname, String name,
+                                     String imagePath, String tel, Float rate, Si si, Gu gu, BigCategory concern) {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
+        this.name = name;
         this.imagePath = imagePath;
         this.tel = tel;
         this.rate = rate;
@@ -51,6 +54,7 @@ public class UserMyPageInfoResponseDto {
                 .id(user.getId())
                 .email(user.getEmail())
                 .nickname(user.getNickname())
+                .name(user.getName())
                 .imagePath(user.getImagePath())
                 .tel(user.getTel())
                 .rate(user.getRate())

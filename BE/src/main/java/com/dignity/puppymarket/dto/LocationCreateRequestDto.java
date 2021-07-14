@@ -9,14 +9,14 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-public class LocationRequestDto {
-    private Double latitude;
+public class LocationCreateRequestDto {
+    private String si;
 
-    private Double longitude;
+    private String gu;
 
     @Builder
-    public LocationRequestDto(Double latitude, Double longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
+    public LocationCreateRequestDto(String si, String gu) {
+        this.si = si;
+        this.gu = gu;
     }
 }

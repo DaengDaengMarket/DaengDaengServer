@@ -1,11 +1,13 @@
 package com.dignity.puppymarket.service;
 
+import com.dignity.puppymarket.domain.Role;
 import com.dignity.puppymarket.domain.User;
 import com.dignity.puppymarket.dto.User.UserRequestDto;
 import com.dignity.puppymarket.dto.User.UserResponseDto;
 import com.dignity.puppymarket.error.DuplicateUserException;
 import com.dignity.puppymarket.error.UserNotFoundException;
 import com.dignity.puppymarket.repository.JPAUserRepository;
+import com.dignity.puppymarket.repository.RoleRepository;
 import com.dignity.puppymarket.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,11 +20,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final JPAUserRepository jpaUserRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository, JPAUserRepository jpaUserRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, JPAUserRepository jpaUserRepository,
+                       PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.jpaUserRepository = jpaUserRepository;
         this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
     }
 
     public UserResponseDto getUser(Long id) {
@@ -44,6 +49,7 @@ public class UserService {
         User user = userDto.toEntity();
         jpaUserRepository.save(user);
         user.updatePassword(user.getPassword(), passwordEncoder);
+        roleRepository.save(new Role(user.getEmail(), "USER"));
         return userDto.getEmail();
     }
 

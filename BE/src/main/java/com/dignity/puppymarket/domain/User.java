@@ -7,7 +7,16 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +37,8 @@ public class User {
     private String password;
 
     private String nickname;
+
+    private String name;
 
     private String imagePath;
 
@@ -69,12 +80,13 @@ public class User {
     private List<ChatMessage> chatMessageList = new ArrayList<>();
 
     @Builder
-    public User(String email, String password, String nickname, String imagePath, String tel, Float rate,
+    public User(String email, String password, String nickname, String name, String imagePath, String tel, Float rate,
                 Si si, Gu gu, BigCategory concern, List<Item> sellerItemList, List<Item> buyerItemList,
                 Blame blame, List<Wish> wishList, List<ChatRoom> chatRoomList, List<ChatMessage> chatMessageList) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
+        this.name = name;
         this.imagePath = imagePath;
         this.tel = tel;
         this.rate = rate;
@@ -95,5 +107,17 @@ public class User {
 
     public void updatePassword(String password, PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(password);
+    }
+
+    public void updateLocationWith(String guCode, String siCode) {
+        Gu gu = Gu.findByGuCode(guCode);
+        Si si = Si.findBySiCode(siCode);
+
+        this.gu = gu;
+        this.si = si;
+    }
+
+    public boolean isSame(String userEmail) {
+        return this.email.equals(userEmail);
     }
 }
