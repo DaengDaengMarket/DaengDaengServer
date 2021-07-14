@@ -116,4 +116,8 @@ public class User {
         this.gu = gu;
         this.si = si;
     }
+
+    public boolean isSame(String userEmail) {
+        return this.email.equals(userEmail);
+    }
 }

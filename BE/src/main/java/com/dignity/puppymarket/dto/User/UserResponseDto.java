@@ -30,6 +30,8 @@ public class UserResponseDto {
 
     private String nickname;
 
+    private String name;
+
     private String imagePath;
 
     private String tel;
@@ -60,6 +62,7 @@ public class UserResponseDto {
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .nickname(user.getNickname())
+                .name(user.getName())
                 .imagePath(user.getImagePath())
                 .tel(user.getTel())
                 .rate(user.getRate())
