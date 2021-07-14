@@ -1,6 +1,5 @@
 package com.dignity.puppymarket.domain;
 
-import com.dignity.puppymarket.dto.LocationCreateRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,6 +37,8 @@ public class User {
     private String password;
 
     private String nickname;
+
+    private String name;
 
     private String imagePath;
 
@@ -79,12 +80,13 @@ public class User {
     private List<ChatMessage> chatMessageList = new ArrayList<>();
 
     @Builder
-    public User(String email, String password, String nickname, String imagePath, String tel, Float rate,
+    public User(String email, String password, String nickname, String name, String imagePath, String tel, Float rate,
                 Si si, Gu gu, BigCategory concern, List<Item> sellerItemList, List<Item> buyerItemList,
                 Blame blame, List<Wish> wishList, List<ChatRoom> chatRoomList, List<ChatMessage> chatMessageList) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
+        this.name = name;
         this.imagePath = imagePath;
         this.tel = tel;
         this.rate = rate;

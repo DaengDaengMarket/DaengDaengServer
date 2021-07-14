@@ -21,8 +21,16 @@ public class Role {
 
     private String email;
 
+    private String name;
+
     @Builder
     public Role(String email) {
         this.email = email;
+    }
+
+    @Builder
+    public Role(String email, String name) {
+        this.email = email;
+        this.name = name;
     }
 }

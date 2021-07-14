@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface RoleRepository extends CrudRepository<Role, Long> {
     List<Role> findAllByEmail(String email);
+
+    Role save(Role role);
 }
