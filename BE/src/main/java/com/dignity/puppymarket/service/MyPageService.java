@@ -11,8 +11,10 @@ import com.dignity.puppymarket.error.UserNotFoundException;
 import com.dignity.puppymarket.repository.ItemRepository;
 import com.dignity.puppymarket.repository.ReviewRepository;
 import com.dignity.puppymarket.repository.UserRepository;
+import com.dignity.puppymarket.security.UserAuthentication;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,9 +34,15 @@ public class MyPageService {
         this.reviewRepository = reviewRepository;
     }
 
-    public MyPageGetResponseDto getMyPageInfo(Long id, String menu, Pageable pageable) {
+    public MyPageGetResponseDto getMyPageInfo(Long id, String menu,
+                                              Pageable pageable,
+                                              UserAuthentication userAuthentication) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
+        if(!userAuthentication.getEmail().equals(user.getEmail())) {
+            throw new AccessDeniedException("권한이 없습니다");
+        }
+
         MyPageGetResponseDto myPageGetResponseDto = MyPageGetResponseDto.of(user);
 
         if(menu.equals("sells")) {
