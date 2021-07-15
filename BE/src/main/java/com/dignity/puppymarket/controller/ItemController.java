@@ -8,6 +8,7 @@ import com.dignity.puppymarket.dto.Item.ItemGetResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemUpdateRequestDto;
 import com.dignity.puppymarket.dto.Item.ItemUpdateResponseDto;
+import com.dignity.puppymarket.dto.WishResponseDto;
 import com.dignity.puppymarket.security.UserAuthentication;
 import com.dignity.puppymarket.service.ItemService;
 import org.springframework.data.domain.Pageable;
@@ -50,8 +51,9 @@ public class ItemController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
-    public ItemCreateResponseDto create(@RequestBody ItemCreateRequestDto itemCreateRequestDto) {
-        return itemService.createItem(itemCreateRequestDto);
+    public ItemCreateResponseDto create(@RequestBody ItemCreateRequestDto itemCreateRequestDto,
+                                        UserAuthentication userAuthentication) {
+        return itemService.createItem(itemCreateRequestDto, userAuthentication);
     }
 
     @PutMapping("/{id}")
@@ -62,9 +64,25 @@ public class ItemController {
         return itemService.updateItem(id, itemUpdateRequestDto, userAuthentication);
     }
 
+    @PutMapping("/{id}/{itemStatus}")
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
+    public ItemUpdateResponseDto updateItemStatus(@PathVariable Long id,
+                                                  @PathVariable String itemStatus,
+                                                  UserAuthentication userAuthentication) {
+        return itemService.updateItemStatus(id, itemStatus, userAuthentication);
+    }
+
+    @PutMapping("/{id}/{wishStatus}")
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
+    public WishResponseDto updateWishStatus(@PathVariable Long id,
+                                            @PathVariable String wishStatus,
+                                            UserAuthentication userAuthentication) {
+        return itemService.updateWishStatus(id, wishStatus, userAuthentication);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
+    @PreAuthorize("isAuthenticated() and (hasAuthority('USER') or hasAuthority('ADMIN'))")
     public ItemDeleteResponseDto delete(@PathVariable Long id, UserAuthentication userAuthentication) {
         return itemService.deleteItem(id, userAuthentication);
     }

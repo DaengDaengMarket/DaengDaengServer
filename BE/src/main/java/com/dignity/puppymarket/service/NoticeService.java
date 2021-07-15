@@ -3,11 +3,13 @@ package com.dignity.puppymarket.service;
 import com.dignity.puppymarket.domain.Notice;
 
 import com.dignity.puppymarket.dto.NoticeRequestDto;
+import com.dignity.puppymarket.dto.NoticeResponseDto;
 import com.dignity.puppymarket.repository.NoticeRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NoticeService {
@@ -17,25 +19,30 @@ public class NoticeService {
         this.noticeRepository = noticeRepository;
     }
 
-    public Notice saveNotice(NoticeRequestDto form){
+    public NoticeResponseDto saveNotice(NoticeRequestDto form){
         Notice notice = form.toEntity();
-        return noticeRepository.save(notice);
+        Notice savedNotice = noticeRepository.save(notice);
+        return NoticeResponseDto.of(savedNotice);
     }
 
-    public List<Notice> viewNotice(){
-        return noticeRepository.findAll();
+    public List<NoticeResponseDto> viewNotice(){
+        return noticeRepository.findAll().stream()
+                .map(NoticeResponseDto::of)
+                .collect(Collectors.toList());
     }
 
-    public Notice getNotice(Long id){
-        return noticeRepository.findById(id).get();
+    public NoticeResponseDto getNotice(Long id){
+        return noticeRepository.findById(id)
+                .map(NoticeResponseDto::of)
+                .get();
     }
 
     @Transactional
-    public Notice updateNotice(Long id, NoticeRequestDto form){
+    public NoticeResponseDto updateNotice(Long id, NoticeRequestDto form){
         Notice notice = noticeRepository.findById(id).get();
         Notice updateNotice = form.toEntity();
         notice.update(updateNotice);
-        return notice;
+        return NoticeResponseDto.of(notice);
     }
 
     public void deleteNotice(Long id){
