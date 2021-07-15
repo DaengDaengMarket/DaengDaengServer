@@ -126,4 +126,8 @@ public class User {
     public void addBlame(Blame blame) {
         blameList.add(blame);
     }
+
+    public void addWish(Wish wish) {
+        wishList.add(wish);
+    }
 }

@@ -160,4 +160,8 @@ public class Item {
     public void updateItemStatus(ItemStatus itemStatus) {
         this.itemStatus = itemStatus;
     }
+
+    public void addWish(Wish wish) {
+        wishList.add(wish);
+    }
 }

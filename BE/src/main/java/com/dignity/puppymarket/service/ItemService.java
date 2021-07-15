@@ -6,6 +6,8 @@ import com.dignity.puppymarket.domain.ItemStatus;
 import com.dignity.puppymarket.domain.MidCategory;
 import com.dignity.puppymarket.domain.Pagination;
 import com.dignity.puppymarket.domain.User;
+import com.dignity.puppymarket.domain.Wish;
+import com.dignity.puppymarket.domain.WishStatus;
 import com.dignity.puppymarket.dto.Item.ItemCreateRequestDto;
 import com.dignity.puppymarket.dto.Item.ItemCreateResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemDeleteResponseDto;
@@ -14,11 +16,13 @@ import com.dignity.puppymarket.dto.Item.ItemHomeGetResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemUpdateRequestDto;
 import com.dignity.puppymarket.dto.Item.ItemUpdateResponseDto;
+import com.dignity.puppymarket.dto.WishResponseDto;
 import com.dignity.puppymarket.error.ItemNotFoundException;
 import com.dignity.puppymarket.error.LocationNotFoundException;
 import com.dignity.puppymarket.error.UserNotFoundException;
 import com.dignity.puppymarket.repository.ItemRepository;
 import com.dignity.puppymarket.repository.UserRepository;
+import com.dignity.puppymarket.repository.WishRepository;
 import com.dignity.puppymarket.security.UserAuthentication;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.AccessDeniedException;
@@ -33,10 +37,14 @@ import java.util.stream.Collectors;
 public class ItemService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
+    private final WishRepository wishRepository;
 
-    public ItemService(ItemRepository itemRepository, UserRepository userRepository) {
+    public ItemService(ItemRepository itemRepository,
+                       UserRepository userRepository,
+                       WishRepository wishRepository) {
         this.itemRepository = itemRepository;
         this.userRepository = userRepository;
+        this.wishRepository = wishRepository;
     }
 
     public List<ItemResponseDto> getItems(Pageable pageable) {
@@ -107,6 +115,30 @@ public class ItemService {
         return ItemUpdateResponseDto.of(item);
     }
 
+    public WishResponseDto updateWishStatus(Long id, String wishStatusString, UserAuthentication userAuthentication) {
+        String userEmail = userAuthentication.getEmail();
+        User savedUser = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new UserNotFoundException(0L));
+
+        Item savedItem = itemRepository.findById(id)
+                .orElseThrow(() -> new ItemNotFoundException(id));
+
+        List<Wish> wishList = wishRepository.findAllByItemAndUser(id, savedUser.getId());
+
+        if(wishList.size() == 0) {
+            Wish wish = Wish.builder().build();
+            wishRepository.save(wish);
+            wish.addItem(savedItem);
+            wish.addUser(savedUser);
+            return WishResponseDto.of(wish);
+        }
+
+        Wish savedWish = wishList.get(0);
+        WishStatus wishStatus = WishStatus.findByWishStatusCode(wishStatusString);
+        savedWish.updateWishStatus(wishStatus);
+        return WishResponseDto.of(savedWish);
+    }
+
     public ItemDeleteResponseDto deleteItem(Long id, UserAuthentication userAuthentication) {
         validateUser(id, userAuthentication);
 
@@ -132,5 +164,4 @@ public class ItemService {
         return itemRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException(id));
     }
-
 }
