@@ -164,4 +164,8 @@ public class Item {
     public void addWish(Wish wish) {
         wishList.add(wish);
     }
+
+    public void addHit() {
+        this.hit += 1;
+    }
 }

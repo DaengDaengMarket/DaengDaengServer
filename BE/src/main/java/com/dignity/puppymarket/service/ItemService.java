@@ -72,9 +72,9 @@ public class ItemService {
     }
 
     public ItemGetResponseDto getItem(Long id) {
-        return itemRepository.findById(id)
-                .map(ItemGetResponseDto::of)
-                .orElseThrow(() -> new ItemNotFoundException(id));
+        Item savedItem = findItem(id);
+        savedItem.addHit();
+        return ItemGetResponseDto.of(savedItem);
     }
 
     public ItemCreateResponseDto createItem(ItemCreateRequestDto itemCreateRequestDto,
