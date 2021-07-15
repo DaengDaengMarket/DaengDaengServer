@@ -151,4 +151,9 @@ public class Item {
     public void addBlame(Blame blame) {
         blameList.add(blame);
     }
+
+    public void addLocation(Si si, Gu gu) {
+        this.si = si;
+        this.gu = gu;
+    }
 }

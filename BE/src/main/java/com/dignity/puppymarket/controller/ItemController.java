@@ -49,8 +49,9 @@ public class ItemController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
-    public ItemCreateResponseDto create(@RequestBody ItemCreateRequestDto itemCreateRequestDto) {
-        return itemService.createItem(itemCreateRequestDto);
+    public ItemCreateResponseDto create(@RequestBody ItemCreateRequestDto itemCreateRequestDto,
+                                        UserAuthentication userAuthentication) {
+        return itemService.createItem(itemCreateRequestDto, userAuthentication);
     }
 
     @PutMapping("/{id}")

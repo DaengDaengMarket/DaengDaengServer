@@ -14,6 +14,7 @@ import com.dignity.puppymarket.dto.Item.ItemResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemUpdateRequestDto;
 import com.dignity.puppymarket.dto.Item.ItemUpdateResponseDto;
 import com.dignity.puppymarket.error.ItemNotFoundException;
+import com.dignity.puppymarket.error.LocationNotFoundException;
 import com.dignity.puppymarket.error.UserNotFoundException;
 import com.dignity.puppymarket.repository.ItemRepository;
 import com.dignity.puppymarket.repository.UserRepository;
@@ -67,8 +68,17 @@ public class ItemService {
                 .orElseThrow(() -> new ItemNotFoundException(id));
     }
 
-    public ItemCreateResponseDto createItem(ItemCreateRequestDto itemCreateRequestDto) {
+    public ItemCreateResponseDto createItem(ItemCreateRequestDto itemCreateRequestDto,
+                                            UserAuthentication userAuthentication) {
+        String userEmail = userAuthentication.getEmail();
+        User savedUser = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new UserNotFoundException(0L));
+        if(savedUser.getSi() == null || savedUser.getGu() == null) {
+            throw new LocationNotFoundException("동네인증을 먼저 해야합니다");
+        }
+
         Item item = itemCreateRequestDto.toEntity();
+        item.addLocation(savedUser.getSi(), savedUser.getGu());
         Item savedItem = itemRepository.save(item);
         return ItemCreateResponseDto.of(savedItem);
     }
