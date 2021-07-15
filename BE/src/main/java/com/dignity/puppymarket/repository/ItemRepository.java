@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ItemRepository extends CrudRepository<Item, Long> {
@@ -33,4 +34,7 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
             "LEFT JOIN i.itemImageList itemImageList LEFT JOIN i.blameList blameList LEFT JOIN i.wishList wishList " +
             "LEFT JOIN i.review review LEFT JOIN i.chatRoomList chatRoomList WHERE i.buyer.id = :id")
     Page<Item> findAllByBuyerId(@Param("id") Long id, Pageable pageable);
+
+    @Query("SELECT distinct i FROM Item i WHERE i.seller.id = :id")
+    List<Item> findAllBySeller(@Param("id") Long id);
 }

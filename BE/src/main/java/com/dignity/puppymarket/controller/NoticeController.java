@@ -6,6 +6,7 @@ import com.dignity.puppymarket.dto.NoticeRequestDto;
 import com.dignity.puppymarket.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,9 @@ public class NoticeController {
     }
 
     //프론트의 내용 받기
-    @PostMapping("/notice")
+    @PostMapping("/admin/notice")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
     public Notice createNotice(@RequestBody NoticeRequestDto form){
         return noticeService.saveNotice(form);
     }
@@ -35,14 +37,16 @@ public class NoticeController {
         return noticeService.getNotice(id);
     }
 
-    @PutMapping("/notice/{id}")
+    @PutMapping("/admin/notice/{id}")
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
     public Notice updateNotice(@PathVariable Long id, @RequestBody NoticeRequestDto form){
         return noticeService.updateNotice(id, form);
     }
 
-    @DeleteMapping("/notice/{id}")
+    @DeleteMapping("/admin/notice/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
     public void deleteNotice(@PathVariable Long id) {
         noticeService.deleteNotice(id);
-
     }
 }

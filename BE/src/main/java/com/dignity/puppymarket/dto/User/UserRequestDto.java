@@ -17,6 +17,8 @@ public class UserRequestDto {
 
     private String nickname;
 
+    private String name;
+
     private BigCategory concern;
 
     private String tel;
@@ -36,6 +38,7 @@ public class UserRequestDto {
                 .email(email)
                 .password(password)
                 .nickname(nickname)
+                .name(name)
                 .concern(concern)
                 .tel(tel)
                 .imagePath(imagePath)

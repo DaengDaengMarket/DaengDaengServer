@@ -1,4 +1,4 @@
-package com.dignity.puppymarket.dto;
+package com.dignity.puppymarket.dto.Blame;
 
 import com.dignity.puppymarket.domain.Blame;
 import com.dignity.puppymarket.domain.BlameStatus;
