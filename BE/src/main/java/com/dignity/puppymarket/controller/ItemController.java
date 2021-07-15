@@ -72,7 +72,7 @@ public class ItemController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
+    @PreAuthorize("isAuthenticated() and (hasAuthority('USER') or hasAuthority('ADMIN'))")
     public ItemDeleteResponseDto delete(@PathVariable Long id, UserAuthentication userAuthentication) {
         return itemService.deleteItem(id, userAuthentication);
     }

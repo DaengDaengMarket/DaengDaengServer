@@ -103,7 +103,7 @@ public class ItemService {
         Item item = findItem(id);
         ItemStatus itemStatus = ItemStatus.findByItemStatusCode(itemStatusString);
         item.updateItemStatus(itemStatus);
-        
+
         return ItemUpdateResponseDto.of(item);
     }
 
