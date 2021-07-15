@@ -8,17 +8,23 @@ import com.dignity.puppymarket.error.ItemNotFoundException;
 import com.dignity.puppymarket.error.ReviewNotFoundException;
 import com.dignity.puppymarket.repository.ItemRepository;
 import com.dignity.puppymarket.repository.ReviewRepository;
+import com.dignity.puppymarket.repository.UserRepository;
+import com.dignity.puppymarket.security.UserAuthentication;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final ItemRepository itemRepository;
+    private final UserRepository userRepository;
 
     public ReviewService(ReviewRepository reviewRepository,
-                         ItemRepository itemRepository) {
+                         ItemRepository itemRepository,
+                         UserRepository userRepository) {
         this.reviewRepository = reviewRepository;
         this.itemRepository = itemRepository;
+        this.userRepository = userRepository;
     }
 
     public ReviewGetResponseDto getReview(Long id) {
@@ -27,7 +33,17 @@ public class ReviewService {
                 .orElseThrow(() -> new ReviewNotFoundException(id));
     }
 
-    public ReviewGetResponseDto createReview(Long id, ReviewRequestDto reviewRequestDto) {
+    public ReviewGetResponseDto createReview(Long id, ReviewRequestDto reviewRequestDto,
+                                             UserAuthentication userAuthentication) {
+        String userEmail = userAuthentication.getEmail();
+
+        Item savedItem = itemRepository.findByItemId(id)
+                .orElseThrow(() -> new ItemNotFoundException(id));
+
+        if(!savedItem.getBuyer().isSame(userEmail)) {
+            throw new AccessDeniedException("권한이 없습니다");
+        }
+
         Review review = reviewRequestDto.toEntity();
 
         Review savedReview = reviewRepository.save(review);

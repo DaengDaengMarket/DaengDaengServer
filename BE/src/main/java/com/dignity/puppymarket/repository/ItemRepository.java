@@ -37,4 +37,7 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
 
     @Query("SELECT distinct i FROM Item i WHERE i.seller.id = :id")
     List<Item> findAllBySeller(@Param("id") Long id);
+
+    @Query("SELECT distinct i FROM Item i WHERE i.id = :id")
+    Optional<Item> findByItemId(@Param("id") Long id);
 }
