@@ -2,6 +2,7 @@ package com.dignity.puppymarket.service;
 
 import com.dignity.puppymarket.domain.BigCategory;
 import com.dignity.puppymarket.domain.Item;
+import com.dignity.puppymarket.domain.ItemStatus;
 import com.dignity.puppymarket.domain.MidCategory;
 import com.dignity.puppymarket.domain.Pagination;
 import com.dignity.puppymarket.domain.User;
@@ -95,6 +96,17 @@ public class ItemService {
         return ItemUpdateResponseDto.of(item);
     }
 
+    public ItemUpdateResponseDto updateItemStatus(Long id, String itemStatusString,
+                                                  UserAuthentication userAuthentication) {
+        validateUser(id, userAuthentication);
+
+        Item item = findItem(id);
+        ItemStatus itemStatus = ItemStatus.findByItemStatusCode(itemStatusString);
+        item.updateItemStatus(itemStatus);
+        
+        return ItemUpdateResponseDto.of(item);
+    }
+
     public ItemDeleteResponseDto deleteItem(Long id, UserAuthentication userAuthentication) {
         validateUser(id, userAuthentication);
 
@@ -120,4 +132,5 @@ public class ItemService {
         return itemRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException(id));
     }
+
 }

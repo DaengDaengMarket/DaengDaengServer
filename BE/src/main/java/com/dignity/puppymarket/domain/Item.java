@@ -156,4 +156,8 @@ public class Item {
         this.si = si;
         this.gu = gu;
     }
+
+    public void updateItemStatus(ItemStatus itemStatus) {
+        this.itemStatus = itemStatus;
+    }
 }
