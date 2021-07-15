@@ -1,6 +1,8 @@
 package com.dignity.puppymarket.service;
 
+import com.dignity.puppymarket.domain.BigCategory;
 import com.dignity.puppymarket.domain.Item;
+import com.dignity.puppymarket.domain.MidCategory;
 import com.dignity.puppymarket.domain.Pagination;
 import com.dignity.puppymarket.domain.User;
 import com.dignity.puppymarket.dto.Item.ItemCreateRequestDto;
@@ -41,24 +43,22 @@ public class ItemService {
                 .collect(Collectors.toList());
     }
     
-    public List<ItemHomeGetResponseDto> getHomeItems(Pageable pageable, String keyword) {
-        if(keyword.equals("")) {
-            return itemRepository.findAll(pageable).stream()
-                    .map(ItemHomeGetResponseDto::of)
-                    .collect(Collectors.toList());
-        }
+    public List<ItemHomeGetResponseDto> getHomeItems(Pageable pageable, String keyword,
+                                                     String bigCategoryString, String midCategoryString) {
+        BigCategory bigCategory = BigCategory.findByBigCategoryCode(bigCategoryString);
+        MidCategory midCategory = MidCategory.findByMidCategoryCode(midCategoryString);
 
-        return itemRepository.findAll(pageable, keyword).stream()
+        return itemRepository.findAll(pageable, keyword, bigCategory, midCategory).stream()
                 .map(ItemHomeGetResponseDto::of)
                 .collect(Collectors.toList());
     }
 
-    public Pagination getHomeItemsPagination(Pageable pageable, String keyword) {
-        if(keyword.equals("")) {
-            return Pagination.itemWith(itemRepository.findAll(pageable));
-        }
+    public Pagination getHomeItemsPagination(Pageable pageable, String keyword,
+                                             String bigCategoryString, String midCategoryString) {
+        BigCategory bigCategory = BigCategory.findByBigCategoryCode(bigCategoryString);
+        MidCategory midCategory = MidCategory.findByMidCategoryCode(midCategoryString);
 
-        return Pagination.itemWith(itemRepository.findAll(pageable, keyword));
+        return Pagination.itemWith(itemRepository.findAll(pageable, keyword, bigCategory, midCategory));
     }
 
     public ItemGetResponseDto getItem(Long id) {

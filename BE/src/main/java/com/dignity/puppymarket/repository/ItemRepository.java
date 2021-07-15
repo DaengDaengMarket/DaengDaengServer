@@ -1,6 +1,8 @@
 package com.dignity.puppymarket.repository;
 
+import com.dignity.puppymarket.domain.BigCategory;
 import com.dignity.puppymarket.domain.Item;
+import com.dignity.puppymarket.domain.MidCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -18,8 +20,10 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
 
     @Query("SELECT distinct i FROM Item i LEFT JOIN i.seller seller LEFT JOIN i.buyer buyer " +
             "LEFT JOIN i.itemImageList itemImageList LEFT JOIN i.blameList blameList LEFT JOIN i.wishList wishList " +
-            "LEFT JOIN i.review review LEFT JOIN i.chatRoomList chatRoomList WHERE i.description LIKE '%:keyword%'")
-    Page<Item> findAll(Pageable pageable, String keyword);
+            "LEFT JOIN i.review review LEFT JOIN i.chatRoomList chatRoomList WHERE i.name LIKE '%:keyword%' " +
+            "OR i.description LIKE '%:keyword%' OR i.bigCategory = :bigCategory OR i.midCategory = :midCateogry")
+    Page<Item> findAll(Pageable pageable, @Param("keyword") String keyword,
+                       @Param("bigCategory") BigCategory bigCategory, @Param("midCategory") MidCategory midCategory);
 
     @Query("SELECT distinct i FROM Item i LEFT JOIN i.seller seller LEFT JOIN i.buyer buyer " +
             "LEFT JOIN i.itemImageList itemImageList LEFT JOIN i.blameList blameList LEFT JOIN i.wishList wishList " +

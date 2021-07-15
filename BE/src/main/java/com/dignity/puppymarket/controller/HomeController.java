@@ -28,10 +28,12 @@ public class HomeController {
     @GetMapping("/")
     public HomeResponseDto Home(
             @PageableDefault(direction = Sort.Direction.DESC, size = 12, sort = "id") Pageable pageable,
-            @RequestParam(required = false, defaultValue = "") String keyword) {
-        List<ItemHomeGetResponseDto> itemList = itemService.getHomeItems(pageable, keyword);
+            @RequestParam(required = false, defaultValue = "") String keyword,
+            @RequestParam(required = false, defaultValue= "") String bigCategory,
+            @RequestParam(required = false, defaultValue= "") String midCategory) {
+        List<ItemHomeGetResponseDto> itemList = itemService.getHomeItems(pageable, keyword, bigCategory, midCategory);
         List<AdvertiseResponseDto> advertiseList = advertiseService.getAdvertises();
-        Pagination pagination = itemService.getHomeItemsPagination(pageable, keyword);
+        Pagination pagination = itemService.getHomeItemsPagination(pageable, keyword, bigCategory, midCategory);
         return HomeResponseDto.of(itemList, advertiseList, pagination);
     }
 }
