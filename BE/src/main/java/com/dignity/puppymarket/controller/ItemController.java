@@ -66,14 +66,6 @@ public class ItemController {
         return itemService.updateItemStatus(id, itemStatus, userAuthentication);
     }
 
-    @PutMapping("/{id}/{wishStatus}")
-    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
-    public WishResponseDto updateWishStatus(@PathVariable Long id,
-                                            @PathVariable String wishStatus,
-                                            UserAuthentication userAuthentication) {
-        return itemService.updateWishStatus(id, wishStatus, userAuthentication);
-    }
-
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("isAuthenticated() and (hasAuthority('USER') or hasAuthority('ADMIN'))")
