@@ -2,7 +2,7 @@ package com.dignity.puppymarket.controller;
 
 import com.dignity.puppymarket.domain.BigCategory;
 import com.dignity.puppymarket.domain.User;
-import com.dignity.puppymarket.dto.UserRequestDto;
+import com.dignity.puppymarket.dto.User.UserRequestDto;
 import com.dignity.puppymarket.repository.JPAUserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ class UserControllerTest {
         ResponseEntity<String> responseEntity = testRestTemplate.postForEntity(url, userDto, String.class);
 
         //then
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(responseEntity.getBody()).hasSizeGreaterThan(0);
 
         List<User> findUserByEmail = jpaUserRepository.findByEmail(email);
