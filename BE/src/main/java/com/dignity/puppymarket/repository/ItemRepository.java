@@ -20,8 +20,8 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
 
     @Query("SELECT distinct i FROM Item i LEFT JOIN i.seller seller LEFT JOIN i.buyer buyer " +
             "LEFT JOIN i.itemImageList itemImageList LEFT JOIN i.blameList blameList LEFT JOIN i.wishList wishList " +
-            "LEFT JOIN i.review review LEFT JOIN i.chatRoomList chatRoomList WHERE i.name LIKE '%:keyword%' " +
-            "OR i.description LIKE '%:keyword%' OR i.bigCategory = :bigCategory OR i.midCategory = :midCateogry")
+            "LEFT JOIN i.review review LEFT JOIN i.chatRoomList chatRoomList WHERE i.itemStatus <> 'HIDE' AND " +
+            "i.name LIKE '%:keyword%' OR i.description LIKE '%:keyword%' OR i.bigCategory = :bigCategory OR i.midCategory = :midCateogry")
     Page<Item> findAll(Pageable pageable, @Param("keyword") String keyword,
                        @Param("bigCategory") BigCategory bigCategory, @Param("midCategory") MidCategory midCategory);
 
