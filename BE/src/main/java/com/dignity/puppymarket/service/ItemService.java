@@ -14,6 +14,8 @@ import com.dignity.puppymarket.dto.Item.ItemUpdateResponseDto;
 import com.dignity.puppymarket.error.ItemNotFoundException;
 import com.dignity.puppymarket.error.UserNotFoundException;
 import com.dignity.puppymarket.repository.ItemRepository;
+import com.dignity.puppymarket.repository.JpaItemRepository;
+import lombok.RequiredArgsConstructor;
 import com.dignity.puppymarket.repository.UserRepository;
 import com.dignity.puppymarket.security.UserAuthentication;
 import org.springframework.data.domain.Pageable;
@@ -26,14 +28,11 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ItemService {
     private final ItemRepository itemRepository;
+    private final JpaItemRepository jpaItemRepository;
     private final UserRepository userRepository;
-
-    public ItemService(ItemRepository itemRepository, UserRepository userRepository) {
-        this.itemRepository = itemRepository;
-        this.userRepository = userRepository;
-    }
 
     public List<ItemResponseDto> getItems(Pageable pageable) {
         return itemRepository.findAll(pageable).stream()
@@ -99,5 +98,11 @@ public class ItemService {
     public Item findItem(Long id) {
         return itemRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException(id));
+    }
+
+    public List<ItemCategoryGetResponseDto> getCategoryItem(Long id, String name) {
+        return  jpaItemRepository.getItemsInCategory(id, name).stream()
+                .map(item -> ItemCategoryGetResponseDto.of(item))
+                .collect(Collectors.toList());
     }
 }

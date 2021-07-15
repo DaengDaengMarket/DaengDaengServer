@@ -3,6 +3,8 @@ package com.dignity.puppymarket.dto.User;
 import com.dignity.puppymarket.domain.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Builder
 @AllArgsConstructor
@@ -23,6 +25,14 @@ public class UserRequestDto {
 
     private String imagePath;
 
+    private Si si;
+
+    private Gu gu;
+
+    private Blame blame;
+
+    List<Wish> wishList;
+
     public User toEntity() {
         return User.builder()
                 .email(email)
@@ -32,6 +42,10 @@ public class UserRequestDto {
                 .concern(concern)
                 .tel(tel)
                 .imagePath(imagePath)
+                .si(si)
+                .gu(gu)
+                .blame(blame)
+                .wishList(wishList)
                 .build();
     }
 }

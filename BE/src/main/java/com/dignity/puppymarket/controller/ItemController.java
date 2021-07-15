@@ -1,5 +1,6 @@
 package com.dignity.puppymarket.controller;
 
+import com.dignity.puppymarket.dto.Item.*;
 import com.dignity.puppymarket.dto.Item.ItemCreateRequestDto;
 import com.dignity.puppymarket.dto.Item.ItemCreateResponseDto;
 import com.dignity.puppymarket.dto.Item.ItemDeleteResponseDto;
@@ -66,5 +67,11 @@ public class ItemController {
     @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
     public ItemDeleteResponseDto delete(@PathVariable Long id, UserAuthentication userAuthentication) {
         return itemService.deleteItem(id, userAuthentication);
+    }
+
+    @GetMapping("/categories/{id}/{name}")
+    public List<ItemCategoryGetResponseDto> getItemInCategory(@PathVariable Long id,
+                                                        @PathVariable String name) {
+        return itemService.getCategoryItem(id, name);
     }
 }
