@@ -41,14 +41,24 @@ public class ItemService {
                 .collect(Collectors.toList());
     }
     
-    public List<ItemHomeGetResponseDto> getHomeItems(Pageable pageable) {
-        return itemRepository.findAll(pageable).stream()
+    public List<ItemHomeGetResponseDto> getHomeItems(Pageable pageable, String keyword) {
+        if(keyword.equals("")) {
+            return itemRepository.findAll(pageable).stream()
+                    .map(ItemHomeGetResponseDto::of)
+                    .collect(Collectors.toList());
+        }
+
+        return itemRepository.findAll(pageable, keyword).stream()
                 .map(ItemHomeGetResponseDto::of)
                 .collect(Collectors.toList());
     }
 
-    public Pagination getHomeItemsPagination(Pageable pageable) {
-        return Pagination.itemWith(itemRepository.findAll(pageable));
+    public Pagination getHomeItemsPagination(Pageable pageable, String keyword) {
+        if(keyword.equals("")) {
+            return Pagination.itemWith(itemRepository.findAll(pageable));
+        }
+
+        return Pagination.itemWith(itemRepository.findAll(pageable, keyword));
     }
 
     public ItemGetResponseDto getItem(Long id) {
