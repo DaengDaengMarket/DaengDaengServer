@@ -21,6 +21,8 @@ public class ItemSellerGetResponseDto {
 
     private String nickname;
 
+    private String name;
+
     private String imagePath;
 
     private String tel;
@@ -32,12 +34,13 @@ public class ItemSellerGetResponseDto {
     private Gu gu;
 
     @Builder
-    public ItemSellerGetResponseDto(Long id, String email, String password, String nickname,
+    public ItemSellerGetResponseDto(Long id, String email, String password, String nickname, String name,
                                     String imagePath, String tel, Float rate, Si si, Gu gu) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
+        this.name = name;
         this.imagePath = imagePath;
         this.tel = tel;
         this.rate = rate;
@@ -53,6 +56,7 @@ public class ItemSellerGetResponseDto {
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .nickname(user.getNickname())
+                .name(user.getName())
                 .imagePath(user.getImagePath())
                 .tel(user.getTel())
                 .rate(user.getRate())

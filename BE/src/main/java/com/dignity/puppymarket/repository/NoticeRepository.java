@@ -12,7 +12,7 @@ public interface NoticeRepository extends CrudRepository<Notice, Long> {
 
     Notice save(Notice notice);
 
-    void delete(Notice notice);
+//    void delete(Notice notice);
 
     Optional<Notice> findById(Long id);
 }

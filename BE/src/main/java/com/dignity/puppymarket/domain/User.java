@@ -5,9 +5,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +25,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "user")
-@ToString(exclude = {"sellerItemList", "buyerItemList", "blame", "wishList", "chatRoomList", "chatMessageList"})
+@ToString(exclude = {"sellerItemList", "buyerItemList", "blameList", "wishList", "chatRoomList", "chatMessageList"})
+@EntityListeners(AuditingEntityListener.class)
 public class User {
     @Id
     @GeneratedValue
@@ -28,6 +39,8 @@ public class User {
     private String password;
 
     private String nickname;
+
+    private String name;
 
     private String imagePath;
 
@@ -52,9 +65,9 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "buyer")
     List<Item> buyerItemList = new ArrayList<>();
 
-    //User 1 : 1 Blame
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
-    private Blame blame;
+    //User 1 : N Blame
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    List<Blame> blameList = new ArrayList<>();
 
     //User 1 : N Wish
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
@@ -69,13 +82,16 @@ public class User {
     private List<ChatMessage> chatMessageList = new ArrayList<>();
 
     @Builder
-    public User(String email, String password, String nickname, String imagePath, String tel, Float rate,
-                Si si, Gu gu, BigCategory concern, List<Item> sellerItemList, List<Item> buyerItemList,
-                Blame blame, List<Wish> wishList, List<ChatRoom> chatRoomList, List<ChatMessage> chatMessageList) {
+    public User(Long id, String email, String password, String nickname, String name,
+                String imagePath, String tel, Float rate, Si si, Gu gu, BigCategory concern,
+                List<Item> sellerItemList, List<Item> buyerItemList, List<Blame> blameList,
+                List<Wish> wishList, List<ChatRoom> chatRoomList, List<ChatMessage> chatMessageList) {
 
+        this.id = id;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
+        this.name = name;
         this.imagePath = imagePath;
         this.tel = tel;
         this.rate = rate;
@@ -84,7 +100,7 @@ public class User {
         this.concern = concern;
         this.sellerItemList = sellerItemList;
         this.buyerItemList = buyerItemList;
-        this.blame = blame;
+        this.blameList = blameList;
         this.wishList = wishList;
         this.chatRoomList = chatRoomList;
         this.chatMessageList = chatMessageList;
@@ -96,5 +112,25 @@ public class User {
 
     public void updatePassword(String password, PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(password);
+    }
+
+    public void updateLocationWith(String guCode, String siCode) {
+        Gu gu = Gu.findByGuCode(guCode);
+        Si si = Si.findBySiCode(siCode);
+
+        this.gu = gu;
+        this.si = si;
+    }
+
+    public boolean isSame(String userEmail) {
+        return this.email.equals(userEmail);
+    }
+
+    public void addBlame(Blame blame) {
+        blameList.add(blame);
+    }
+
+    public void addWish(Wish wish) {
+        wishList.add(wish);
     }
 }

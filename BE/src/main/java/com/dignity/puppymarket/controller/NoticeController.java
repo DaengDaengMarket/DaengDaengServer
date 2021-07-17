@@ -1,48 +1,62 @@
 package com.dignity.puppymarket.controller;
 
-import com.dignity.puppymarket.domain.Notice;
-
 import com.dignity.puppymarket.dto.NoticeRequestDto;
+import com.dignity.puppymarket.dto.NoticeResponseDto;
 import com.dignity.puppymarket.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/notice")
 public class NoticeController {
 
     @Autowired//스프링부트가 알아서 객채 생성및 연결
     private NoticeService noticeService;
 
-    //메인화면 보여주기
-    @GetMapping("/notice")
-    public List<Notice> viewNotice() {
+    //공지글 리스트 조회
+    @GetMapping
+    public List<NoticeResponseDto> viewNotice() {
         return noticeService.viewNotice();
     }
 
-    //프론트의 내용 받기
-    @PostMapping("/notice")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Notice createNotice(@RequestBody NoticeRequestDto form){
-        return noticeService.saveNotice(form);
-    }
-
-    //수정 게시글 상세보기
-    @GetMapping("/notice/{id}")
-    public Notice getNotice(@PathVariable Long id) {
+    //공지글 상세조회
+    @GetMapping("/{id}")
+    public NoticeResponseDto getNotice(@PathVariable Long id) {
         return noticeService.getNotice(id);
     }
 
-    @PutMapping("/notice/{id}")
-    public Notice updateNotice(@PathVariable Long id, @RequestBody NoticeRequestDto form){
+    //공지글 수정
+    @PutMapping("/{id}")
+    @PreAuthorize("isAuthenticated() and hasAuthority('ADMIN')")
+    public NoticeResponseDto updateNotice(@PathVariable Long id, @RequestBody NoticeRequestDto form){
         return noticeService.updateNotice(id, form);
     }
 
-    @DeleteMapping("/notice/{id}")
+    //공지글 저장
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("isAuthenticated() and hasAuthority('ADMIN')")
+    public NoticeResponseDto createNotice(@RequestBody NoticeRequestDto form){
+        return noticeService.saveNotice(form);
+    }
+
+    //공지글 삭제
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("isAuthenticated() and hasAuthority('ADMIN')")
     public void deleteNotice(@PathVariable Long id) {
         noticeService.deleteNotice(id);
-
     }
 }

@@ -30,6 +30,8 @@ public class UserResponseDto {
 
     private String nickname;
 
+    private String name;
+
     private String imagePath;
 
     private String tel;
@@ -46,7 +48,7 @@ public class UserResponseDto {
 
     private List<Item> buyerItemList;
 
-    private Blame blame;
+    private List<Blame> blameList;
 
     private List<Wish> wishList;
 
@@ -60,6 +62,7 @@ public class UserResponseDto {
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .nickname(user.getNickname())
+                .name(user.getName())
                 .imagePath(user.getImagePath())
                 .tel(user.getTel())
                 .rate(user.getRate())
@@ -68,7 +71,7 @@ public class UserResponseDto {
                 .concern(user.getConcern())
                 .sellerItemList((user.getSellerItemList()))
                 .buyerItemList(user.getBuyerItemList())
-                .blame(user.getBlame())
+                .blameList(user.getBlameList())
                 .wishList(user.getWishList())
                 .chatRoomList(user.getChatRoomList())
                 .chatMessageList(user.getChatMessageList())

@@ -14,12 +14,12 @@ import lombok.ToString;
 public class ReviewRequestDto {
     private String content;
 
-    private Float rate;
+    private String rate;
 
     private Item item;
 
     @Builder
-    public ReviewRequestDto(String content, Float rate, Item item) {
+    public ReviewRequestDto(String content, String rate, Item item) {
         this.content = content;
         this.rate = rate;
         this.item = item;
@@ -28,7 +28,7 @@ public class ReviewRequestDto {
     public Review toEntity() {
         return Review.builder()
                 .content(this.content)
-                .rate(this.rate)
+                .rate(Float.parseFloat(this.rate))
                 .build();
     }
 }
