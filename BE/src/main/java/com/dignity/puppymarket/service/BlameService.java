@@ -11,24 +11,18 @@ import com.dignity.puppymarket.repository.BlameRepository;
 import com.dignity.puppymarket.repository.ItemRepository;
 import com.dignity.puppymarket.repository.UserRepository;
 import com.dignity.puppymarket.security.UserAuthentication;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class BlameService {
     private final BlameRepository blameRepository;
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
-
-    public BlameService(BlameRepository blameRepository,
-                        ItemRepository itemRepository,
-                        UserRepository userRepository){
-        this.blameRepository = blameRepository;
-        this.itemRepository = itemRepository;
-        this.userRepository = userRepository;
-    }
 
     public List<BlameGetResponseDto> viewBlame(){
         return blameRepository.findAll().stream()

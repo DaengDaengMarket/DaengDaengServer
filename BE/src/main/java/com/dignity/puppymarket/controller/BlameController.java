@@ -4,6 +4,7 @@ import com.dignity.puppymarket.dto.Blame.BlameGetResponseDto;
 import com.dignity.puppymarket.dto.Blame.BlameRequestDto;
 import com.dignity.puppymarket.security.UserAuthentication;
 import com.dignity.puppymarket.service.BlameService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,11 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/blame")
 public class BlameController {
 
-    @Autowired
-    private BlameService blameService;
+    private final BlameService blameService;
 
     @GetMapping("")
     @PreAuthorize("isAuthenticated() and hasAuthority('ADMIN')")

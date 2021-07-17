@@ -1,19 +1,13 @@
 package com.dignity.puppymarket.controller;
 
 import com.dignity.puppymarket.dto.Item.*;
-import com.dignity.puppymarket.dto.Item.ItemCreateRequestDto;
-import com.dignity.puppymarket.dto.Item.ItemCreateResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemDeleteResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemGetResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemUpdateRequestDto;
-import com.dignity.puppymarket.dto.Item.ItemUpdateResponseDto;
 import com.dignity.puppymarket.dto.WishResponseDto;
 import com.dignity.puppymarket.security.UserAuthentication;
 import com.dignity.puppymarket.service.ItemService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -89,7 +83,14 @@ public class ItemController {
 
     @GetMapping("/categories/{id}/{name}")
     public List<ItemCategoryGetResponseDto> getItemInCategory(@PathVariable Long id,
-                                                        @PathVariable String name) {
+                                                              @PathVariable String name) {
         return itemService.getCategoryItem(id, name);
+    }
+
+    // QueryString으로 ex) /search?name=tony&midCategory=FEED&bigCategory=BIG&page=1
+    @GetMapping("/search")
+    public List<ItemCategoryGetResponseDto> searchItems(@ModelAttribute ItemSearchCondition condition, @RequestParam(name = "page", required = false) int page) {
+        int size = 12;
+        return itemService.search(condition, page, size);
     }
 }

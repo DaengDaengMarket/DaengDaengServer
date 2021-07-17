@@ -29,7 +29,7 @@ public class UserRequestDto {
 
     private Gu gu;
 
-    private Blame blame;
+    private List<Blame> blameList;
 
     List<Wish> wishList;
 
@@ -44,7 +44,7 @@ public class UserRequestDto {
                 .imagePath(imagePath)
                 .si(si)
                 .gu(gu)
-                .blame(blame)
+                .blameList(blameList)
                 .wishList(wishList)
                 .build();
     }

@@ -1,10 +1,6 @@
 package com.dignity.puppymarket.domain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +18,7 @@ import javax.persistence.Table;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "wish")
 @Builder
+@AllArgsConstructor
 @ToString(exclude = {"user", "item"})
 public class Wish {
     @Id

@@ -8,14 +8,7 @@ import com.dignity.puppymarket.domain.Pagination;
 import com.dignity.puppymarket.domain.User;
 import com.dignity.puppymarket.domain.Wish;
 import com.dignity.puppymarket.domain.WishStatus;
-import com.dignity.puppymarket.dto.Item.ItemCreateRequestDto;
-import com.dignity.puppymarket.dto.Item.ItemCreateResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemDeleteResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemGetResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemHomeGetResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemUpdateRequestDto;
-import com.dignity.puppymarket.dto.Item.ItemUpdateResponseDto;
+import com.dignity.puppymarket.dto.Item.*;
 import com.dignity.puppymarket.dto.WishResponseDto;
 import com.dignity.puppymarket.error.ItemNotFoundException;
 import com.dignity.puppymarket.error.LocationNotFoundException;
@@ -43,36 +36,21 @@ public class ItemService {
     private final UserRepository userRepository;
     private final WishRepository wishRepository;
 
-    public ItemService(ItemRepository itemRepository,
-                       UserRepository userRepository,
-                       WishRepository wishRepository) {
-        this.itemRepository = itemRepository;
-        this.userRepository = userRepository;
-        this.wishRepository = wishRepository;
-    }
-  
     public List<ItemResponseDto> getItems(Pageable pageable) {
         return itemRepository.findAll(pageable).stream()
                 .map(ItemResponseDto::of)
                 .collect(Collectors.toList());
     }
-    
-    public List<ItemHomeGetResponseDto> getHomeItems(Pageable pageable, String keyword,
-                                                     String bigCategoryString, String midCategoryString) {
-        BigCategory bigCategory = BigCategory.findByBigCategoryCode(bigCategoryString);
-        MidCategory midCategory = MidCategory.findByMidCategoryCode(midCategoryString);
 
-        return itemRepository.findAll(pageable, keyword, bigCategory, midCategory).stream()
+    public List<ItemHomeGetResponseDto> getHomeItems(Pageable pageable) {
+        return itemRepository.findAll(pageable).stream()
                 .map(ItemHomeGetResponseDto::of)
                 .collect(Collectors.toList());
     }
 
-    public Pagination getHomeItemsPagination(Pageable pageable, String keyword,
-                                             String bigCategoryString, String midCategoryString) {
-        BigCategory bigCategory = BigCategory.findByBigCategoryCode(bigCategoryString);
-        MidCategory midCategory = MidCategory.findByMidCategoryCode(midCategoryString);
+    public Pagination getHomeItemsPagination(Pageable pageable) {
 
-        return Pagination.itemWith(itemRepository.findAll(pageable, keyword, bigCategory, midCategory));
+        return Pagination.itemWith(itemRepository.findAll(pageable));
     }
 
     public ItemGetResponseDto getItem(Long id) {
@@ -173,5 +151,9 @@ public class ItemService {
         return  jpaItemRepository.getItemsInCategory(id, name).stream()
                 .map(item -> ItemCategoryGetResponseDto.of(item))
                 .collect(Collectors.toList());
+    }
+
+    public List<ItemCategoryGetResponseDto> search(ItemSearchCondition condition, int page, int size) {
+        return jpaItemRepository.search(condition, page, size);
     }
 }
