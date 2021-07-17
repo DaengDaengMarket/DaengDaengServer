@@ -77,7 +77,7 @@ public class LocationService {
     public String getRegionAddress(String jsonString) {
         JSONObject jObj = (JSONObject) JSONValue.parse(jsonString);
         if(jObj == null) {
-            throw new LocationNotFoundException();
+            throw new LocationNotFoundException("현재 위치를 찾을 수 없습니다");
         }
 
         JSONArray jArray = (JSONArray) jObj.get("results");

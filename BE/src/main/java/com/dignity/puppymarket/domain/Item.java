@@ -4,10 +4,12 @@ import com.dignity.puppymarket.dto.Item.ItemUpdateRequestDto;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -146,5 +148,26 @@ public class Item {
 
     public void addReview(Review review) {
         this.review = review;
+    }
+
+    public void addBlame(Blame blame) {
+        blameList.add(blame);
+    }
+
+    public void addLocation(Si si, Gu gu) {
+        this.si = si;
+        this.gu = gu;
+    }
+
+    public void updateItemStatus(ItemStatus itemStatus) {
+        this.itemStatus = itemStatus;
+    }
+
+    public void addWish(Wish wish) {
+        wishList.add(wish);
+    }
+
+    public void addHit() {
+        this.hit += 1;
     }
 }

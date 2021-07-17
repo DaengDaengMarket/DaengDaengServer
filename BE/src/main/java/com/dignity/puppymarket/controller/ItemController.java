@@ -1,18 +1,13 @@
 package com.dignity.puppymarket.controller;
 
 import com.dignity.puppymarket.dto.Item.*;
-import com.dignity.puppymarket.dto.Item.ItemCreateRequestDto;
-import com.dignity.puppymarket.dto.Item.ItemCreateResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemDeleteResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemGetResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemResponseDto;
-import com.dignity.puppymarket.dto.Item.ItemUpdateRequestDto;
-import com.dignity.puppymarket.dto.Item.ItemUpdateResponseDto;
+import com.dignity.puppymarket.dto.WishResponseDto;
 import com.dignity.puppymarket.security.UserAuthentication;
 import com.dignity.puppymarket.service.ItemService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,8 +45,9 @@ public class ItemController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
-    public ItemCreateResponseDto create(@RequestBody ItemCreateRequestDto itemCreateRequestDto) {
-        return itemService.createItem(itemCreateRequestDto);
+    public ItemCreateResponseDto create(@RequestBody ItemCreateRequestDto itemCreateRequestDto,
+                                        UserAuthentication userAuthentication) {
+        return itemService.createItem(itemCreateRequestDto, userAuthentication);
     }
 
     @PutMapping("/{id}")
@@ -62,16 +58,39 @@ public class ItemController {
         return itemService.updateItem(id, itemUpdateRequestDto, userAuthentication);
     }
 
+    @PutMapping("/{id}/{itemStatus}")
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
+    public ItemUpdateResponseDto updateItemStatus(@PathVariable Long id,
+                                                  @PathVariable String itemStatus,
+                                                  UserAuthentication userAuthentication) {
+        return itemService.updateItemStatus(id, itemStatus, userAuthentication);
+    }
+
+    @PutMapping("/{id}/{wishStatus}")
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
+    public WishResponseDto updateWishStatus(@PathVariable Long id,
+                                            @PathVariable String wishStatus,
+                                            UserAuthentication userAuthentication) {
+        return itemService.updateWishStatus(id, wishStatus, userAuthentication);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
+    @PreAuthorize("isAuthenticated() and (hasAuthority('USER') or hasAuthority('ADMIN'))")
     public ItemDeleteResponseDto delete(@PathVariable Long id, UserAuthentication userAuthentication) {
         return itemService.deleteItem(id, userAuthentication);
     }
 
     @GetMapping("/categories/{id}/{name}")
     public List<ItemCategoryGetResponseDto> getItemInCategory(@PathVariable Long id,
-                                                        @PathVariable String name) {
+                                                              @PathVariable String name) {
         return itemService.getCategoryItem(id, name);
+    }
+
+    // QueryString으로 ex) /search?name=tony&midCategory=FEED&bigCategory=BIG&page=1
+    @GetMapping("/search")
+    public List<ItemCategoryGetResponseDto> searchItems(@ModelAttribute ItemSearchCondition condition, @RequestParam(name = "page", required = false) int page) {
+        int size = 12;
+        return itemService.search(condition, page, size);
     }
 }
