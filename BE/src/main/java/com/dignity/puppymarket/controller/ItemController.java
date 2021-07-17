@@ -5,14 +5,7 @@ import com.dignity.puppymarket.service.ItemService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -56,5 +49,11 @@ public class ItemController {
     public List<ItemCategoryGetResponseDto> getItemInCategory(@PathVariable Long id,
                                                         @PathVariable String name) {
         return itemService.getCategoryItem(id, name);
+    }
+
+    // QueryString으로 ex) /search?name=tony&midCategory=FEED&bigCategory=BIG
+    @GetMapping("/search")
+    public List<ItemCategoryGetResponseDto> searchItems(@ModelAttribute ItemSearchCondition condition) {
+        return itemService.search(condition);
     }
 }

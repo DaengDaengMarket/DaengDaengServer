@@ -76,4 +76,8 @@ public class ItemService {
                 .map(item -> ItemCategoryGetResponseDto.of(item))
                 .collect(Collectors.toList());
     }
+
+    public List<ItemCategoryGetResponseDto> search(ItemSearchCondition condition) {
+        return jpaItemRepository.search(condition);
+    }
 }
