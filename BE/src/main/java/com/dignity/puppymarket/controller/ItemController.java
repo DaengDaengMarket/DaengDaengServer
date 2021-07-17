@@ -87,9 +87,10 @@ public class ItemController {
         return itemService.getCategoryItem(id, name);
     }
 
-    // QueryString으로 ex) /search?name=tony&midCategory=FEED&bigCategory=BIG
+    // QueryString으로 ex) /search?name=tony&midCategory=FEED&bigCategory=BIG&page=1
     @GetMapping("/search")
-    public List<ItemCategoryGetResponseDto> searchItems(@ModelAttribute ItemSearchCondition condition) {
-        return itemService.search(condition);
+    public List<ItemCategoryGetResponseDto> searchItems(@ModelAttribute ItemSearchCondition condition, @RequestParam(name = "page", required = false) int page) {
+        int size = 12;
+        return itemService.search(condition, page, size);
     }
 }

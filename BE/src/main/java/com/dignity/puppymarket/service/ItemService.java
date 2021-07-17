@@ -153,7 +153,7 @@ public class ItemService {
                 .collect(Collectors.toList());
     }
 
-    public List<ItemCategoryGetResponseDto> search(ItemSearchCondition condition) {
-        return jpaItemRepository.search(condition);
+    public List<ItemCategoryGetResponseDto> search(ItemSearchCondition condition, int page, int size) {
+        return jpaItemRepository.search(condition, page, size);
     }
 }

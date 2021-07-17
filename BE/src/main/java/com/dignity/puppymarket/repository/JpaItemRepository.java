@@ -43,7 +43,7 @@ public class JpaItemRepository {
         return itemList;
     }
 
-    public List<ItemCategoryGetResponseDto> search(ItemSearchCondition condition){
+    public List<ItemCategoryGetResponseDto> search(ItemSearchCondition condition, int page, int size){
 
         QItem item = QItem.item;
         return queryFactory
@@ -64,6 +64,8 @@ public class JpaItemRepository {
                         midCategoryEq(condition.getMidCategory()),
                         bigCategoryEq(condition.getBigCategory())
                 )
+                .offset((page - 1) * size)
+                .limit(size)
                 .fetch();
     }
 
