@@ -52,8 +52,8 @@ public class AuthenticationService {
         String email = authenticationCreateDto.getEmail();
         String password = authenticationCreateDto.getPassword();
         User savedUser = authenticateEmailAndPassword(email,password);
-        List<Role> roles = roles(email);
-        Authentication authentication = new UserAuthentication(email, roles);
+        List<Role> roles = roles(savedUser.getEmail());
+        Authentication authentication = new UserAuthentication(savedUser.getEmail(), roles);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 

@@ -45,6 +45,7 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
         http
                 .formLogin()
                 .loginProcessingUrl("/")
+                .defaultSuccessUrl("/")
                 .permitAll();
 
         http
