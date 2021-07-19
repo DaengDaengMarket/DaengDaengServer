@@ -3,7 +3,7 @@ package com.dignity.puppymarket.controller;
 import com.dignity.puppymarket.dto.WishResponseDto;
 import com.dignity.puppymarket.security.UserAuthentication;
 import com.dignity.puppymarket.service.WishService;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,10 +17,13 @@ public class WishController {
     }
 
     @PutMapping("item/{id}/wish/{wishStatus}")
-    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
+    //@PreAuthorize("isAuthenticated() and hasAuthority('USER')")
     public WishResponseDto updateWishStatus(@PathVariable Long id,
                                             @PathVariable String wishStatus,
                                             UserAuthentication userAuthentication) {
+        if(userAuthentication == null) {
+            throw new AccessDeniedException("권한이 없습니다");
+        }
         return wishService.updateWishStatus(id, wishStatus, userAuthentication);
     }
 }
