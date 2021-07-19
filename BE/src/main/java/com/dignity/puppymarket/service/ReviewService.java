@@ -2,6 +2,7 @@ package com.dignity.puppymarket.service;
 
 import com.dignity.puppymarket.domain.Item;
 import com.dignity.puppymarket.domain.Review;
+import com.dignity.puppymarket.domain.User;
 import com.dignity.puppymarket.dto.Review.ReviewGetResponseDto;
 import com.dignity.puppymarket.dto.Review.ReviewRequestDto;
 import com.dignity.puppymarket.error.ItemNotFoundException;
@@ -40,7 +41,8 @@ public class ReviewService {
         Item savedItem = itemRepository.findByItemId(id)
                 .orElseThrow(() -> new ItemNotFoundException(id));
 
-        if(!savedItem.getBuyer().isSame(userEmail)) {
+        User buyer = savedItem.getBuyer();
+        if(buyer != null && !buyer.isSame(userEmail)) {
             throw new AccessDeniedException("권한이 없습니다");
         }
 
