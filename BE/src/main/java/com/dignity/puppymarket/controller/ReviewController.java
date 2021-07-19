@@ -5,7 +5,7 @@ import com.dignity.puppymarket.dto.Review.ReviewRequestDto;
 import com.dignity.puppymarket.security.UserAuthentication;
 import com.dignity.puppymarket.service.ReviewService;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,10 +28,13 @@ public class ReviewController {
 
     @PostMapping("/items/{id}/review")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
+    //@PreAuthorize("isAuthenticated() and hasAuthority('USER')")
     public ReviewGetResponseDto create(@PathVariable Long id,
                                        @RequestBody ReviewRequestDto reviewRequestDto,
                                        UserAuthentication userAuthentication) {
+        if(userAuthentication == null) {
+            throw new AccessDeniedException("권한이 없습니다. 로그인하세요");
+        }
         return reviewService.createReview(id, reviewRequestDto, userAuthentication);
     }
 }

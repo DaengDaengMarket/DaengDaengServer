@@ -97,30 +97,6 @@ public class ItemService {
         return ItemUpdateResponseDto.of(item);
     }
 
-    public WishResponseDto updateWishStatus(Long id, String wishStatusString, UserAuthentication userAuthentication) {
-        String userEmail = userAuthentication.getEmail();
-        User savedUser = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new UserNotFoundException(0L));
-
-        Item savedItem = itemRepository.findById(id)
-                .orElseThrow(() -> new ItemNotFoundException(id));
-
-        List<Wish> wishList = wishRepository.findAllByItemAndUser(id, savedUser.getId());
-
-        if(wishList.size() == 0) {
-            Wish wish = Wish.builder().build();
-            wishRepository.save(wish);
-            wish.addItem(savedItem);
-            wish.addUser(savedUser);
-            return WishResponseDto.of(wish);
-        }
-
-        Wish savedWish = wishList.get(0);
-        WishStatus wishStatus = WishStatus.findByWishStatusCode(wishStatusString);
-        savedWish.updateWishStatus(wishStatus);
-        return WishResponseDto.of(savedWish);
-    }
-
     public ItemDeleteResponseDto deleteItem(Long id, UserAuthentication userAuthentication) {
         validateUser(id, userAuthentication);
 

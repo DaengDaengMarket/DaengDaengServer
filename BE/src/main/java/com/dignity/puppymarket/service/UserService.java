@@ -48,7 +48,7 @@ public class UserService {
         validateDuplicationUser(userDto);
         User user = userDto.toEntity();
         jpaUserRepository.save(user);
-        user.updatePassword(user.getPassword(), passwordEncoder);
+        //user.updatePassword(user.getPassword(), passwordEncoder);
         roleRepository.save(new Role(user.getEmail(), "USER"));
         return userDto.getEmail();
     }
