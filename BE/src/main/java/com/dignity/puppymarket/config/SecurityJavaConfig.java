@@ -3,14 +3,10 @@ package com.dignity.puppymarket.config;
 import com.dignity.puppymarket.filters.AuthenticationErrorFilter;
 import com.dignity.puppymarket.filters.JwtAuthenticationFilter;
 import com.dignity.puppymarket.service.AuthenticationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 import javax.servlet.Filter;
 
@@ -29,17 +25,37 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
                 authenticationManager(), authenticationService);
         Filter authenticationErrorFilter = new AuthenticationErrorFilter();
 
+//        http
+//                .csrf().disable()
+//                .headers()
+//                .frameOptions().disable()
+//                .and()
+//                .addFilter(authenticationFilter)
+//                .addFilterBefore(authenticationErrorFilter, JwtAuthenticationFilter.class)
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .exceptionHandling()
+//                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+        http
+                .authorizeRequests()
+                .anyRequest()
+                .permitAll();
+
+        http
+                .formLogin()
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/")
+                .permitAll();
+
+        http
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/");
+
         http
                 .csrf().disable()
                 .headers()
-                .frameOptions().disable()
-                .and()
-                .addFilter(authenticationFilter)
-                .addFilterBefore(authenticationErrorFilter, JwtAuthenticationFilter.class)
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+                .frameOptions().disable();
     }
 }
